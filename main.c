@@ -44,8 +44,6 @@ void adminSettings()
     printf("3.delete account\n");
     printf("4.Diplay info of User\n");
     printf("5.loans information & decision\n");
-    
-
 }
 
 void userSettings()
