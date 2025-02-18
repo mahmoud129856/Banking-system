@@ -1,16 +1,4 @@
 #include <stdio.h>
-void adminSettings();
-void userSettings();
-
-typedef struct
-{
-    char Id[100];
-    char Name[100];
-    unsigned int age;
-    char address[100];
-    char acountType[100];
-
-} account;
 
 int main()
 {
@@ -34,18 +22,4 @@ int main()
             printf("Invalid choice!\n");
         }
     }
-}
-
-void adminSettings()
-{
-    int chouce = 0;
-    printf("1.create account\n");
-    printf("2.update account\n");
-    printf("3.delete account\n");
-    printf("4.Diplay info of User\n");
-    printf("5.loans information & decision\n");
-}
-
-void userSettings()
-{
 }
