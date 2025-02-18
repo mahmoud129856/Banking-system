@@ -16,6 +16,8 @@ int userCount = 0;
 
 void adminSettings();
 void userSettings();
+void adminLogin();
+void userLogin();
 /**************functions  Prototype**********/
 #define MAX_USER 100
 /*************** define section *************/
