@@ -53,3 +53,32 @@ void adminSettings()
         }
     }
 }
+
+/************* create acc ************/
+createAccount()
+{
+}
+/**************update*****************/
+updateAccount()
+{
+}
+/**************delete*****************/
+deleteAccount()
+{
+}
+/**************display info*****************/
+displayUserInfo()
+{
+}
+/**************loan informayion*****************/
+loanInformation()
+{
+}
+/**************schedual pattern*****************/
+scheduleLoans()
+{
+}
+/**************tech support*****************/
+supportSection()
+{
+}

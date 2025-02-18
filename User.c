@@ -41,12 +41,40 @@ void userSettings()
             customerSupport();
             break;
         case 8:
-            mainMenu();
+            systemFace();
             break;
         case 9:
-            exit(0);
+            exit();
         default:
             printf("Invalid choice\n");
         }
     }
+}
+/***************** add money *******************/
+depositCash()
+{
+}
+/***************** take off money *******************/
+withdrawCash()
+{
+}
+/***************** show the money *******************/
+checkBalance()
+{
+}
+/***************** send money *******************/
+cashTransfer()
+{
+}
+/***************** choose loan from schedual *******************/
+applyForLoan()
+{
+}
+/***************** track the installments *******************/
+trackingLoan()
+{
+}
+/***************** rite a massage from user *******************/
+customerSupport()
+{
 }
