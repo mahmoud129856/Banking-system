@@ -3,7 +3,7 @@
 /************* admin function ************/
 void adminSettings()
 {
-    /*every function will contain option "Go back for admin option"*/
+    /*every function will contain option "Go back for admin options"*/
 
     int choice = 0;
     while (1)
@@ -43,7 +43,7 @@ void adminSettings()
             supportSection();
             break;
         case 8:
-            mainMenu();
+            systemFace();
             break;
         case 9:
             exit();

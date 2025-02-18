@@ -2,7 +2,11 @@
 
 int main()
 {
-    int chouce = 0;
+    systemFace();
+}
+void systemFace()
+{
+    int choice = 0;
     while (1)
     {
         printf("1.Admin Moode\n");
@@ -33,3 +37,5 @@ adminLogin()
 userLogin()
 {
 }
+
+/***************** */
