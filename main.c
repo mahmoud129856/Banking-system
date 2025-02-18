@@ -13,10 +13,10 @@ int main()
         switch (choice)
         {
         case 1:
-            adminSettings();
+            adminLogin();
             break;
         case 2:
-            userSettings();
+            userLogin();
             break;
         default:
             printf("Invalid choice!\n");
