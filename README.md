@@ -1,2 +1,2 @@
 ﻿# Banking-system
-mammmmmmmmmm
+int main() {
