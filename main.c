@@ -1,8 +1,7 @@
 #include <stdio.h>
-struct 
+struct
 {
-    
-    
+    int name;
 };
 
 int main()
