@@ -46,7 +46,7 @@ void adminSettings()
             systemFace();
             break;
         case 9:
-            exit();
+            return 0;
             break;
         default:
             printf("Invalid choice! Try again.\n");

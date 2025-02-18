@@ -44,7 +44,7 @@ void userSettings()
             systemFace();
             break;
         case 9:
-            exit();
+            return 0;
         default:
             printf("Invalid choice\n");
         }

@@ -22,6 +22,8 @@ void systemFace()
         case 2:
             userLogin();
             break;
+        case 3:
+            return 0;
         default:
             printf("Invalid choice!\n");
         }
