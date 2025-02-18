@@ -2,6 +2,7 @@
 struct
 {
     int name;
+    float value;
 };
 
 int main()
