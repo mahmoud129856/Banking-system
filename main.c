@@ -3,6 +3,7 @@ struct
 {
     int name;
     float value;
+    dsfaidfilusdfilu;
 };
 
 int main()
