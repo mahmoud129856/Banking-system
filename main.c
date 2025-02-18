@@ -1,1 +1,17 @@
-jwefuk3rfku3kiuf23lirf3lo4i
+#include <stdio.h>
+struct
+{
+    int name;
+    float value;
+};
+
+int main()
+{
+    int a = 10;
+    int b = 20;
+    int result = a + b;
+
+    printf("Sum of %d and %d is: %d\n", a, b, result);
+
+    return 0;
+}
