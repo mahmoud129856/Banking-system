@@ -9,8 +9,8 @@ typedef struct
     unsigned int age;     /*of user*/
     char address[100];    /*address of user*/
     char acountType[100]; /*Savings/Checking*/
-    long int password;    /*of user*/
-
+    long int password; /*of user*/
+    long long balance;
 } account;
 
 typedef struct
