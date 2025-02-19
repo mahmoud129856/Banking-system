@@ -25,6 +25,7 @@ typedef struct
     u8 acountType[100];    /*Savings/Checking*/
     u32 password;          /*of user*/
     u32 balance;
+    u32 complain[500];
 
 } account;
 
