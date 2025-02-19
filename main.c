@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include "HeaderFiles.h"
+void systemFace(void);
 int main()
 {
-    systemFace();
+   systemFace();
+
+    return 0;
 }
+
 void systemFace()
 {
     int choice = 0;

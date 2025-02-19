@@ -1,11 +1,11 @@
 
-
+#include"typedef.h"
 /************* admin function ************/
 void adminSettings()
 {
     /*every function will contain option "Go back for admin options"*/
 
-    int choice = 0;
+   u8 choice = 0;
     while (1)
     {
         printf("1.create account\n");
@@ -57,6 +57,8 @@ void adminSettings()
 /************* create acc ************/
 createAccount()
 {
+    printf("hello in create accont serves\n");
+    printf("\npleas enter the account user name ")
 }
 /**************update*****************/
 updateAccount()

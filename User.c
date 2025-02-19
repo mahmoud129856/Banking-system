@@ -1,9 +1,9 @@
-
-
+#include"HeaderFiles.h"
+#include"typedef.h"
 /************** User function *******************/
 void userSettings()
 {
-    int choice;
+  u8 choice;
     while (1)
     {
         printf("1.deposits cash\n");
@@ -65,6 +65,59 @@ checkBalance()
 /***************** send money *******************/
 cashTransfer()
 {
+u32 form_id,to_id;
+u8 from_index=0,to_index=0;
+u32 amount;
+
+printf("hello in the transfer money serves\n ");
+   
+    printf("\nenter your id: ");
+    scanf("%d",&form_id); 
+   printf("enter the id beneficiary: "); 
+   scanf("%d",&to_id);
+   printf("enter the mount of transfer money:");
+   scanf("%d",&amount);
+   for(int i=0;i<userCount;i++){
+    if(accounts[i].Id==to_id){
+        to_index=i;
+    }
+    if(accounts[i].Id==form_id){
+        from_index=i;
+    }
+   }
+   if(from_index=0){
+    printf("your id not found\n");
+    cashTransfer();
+   }
+   if(to_index=0){
+    printf("the id beneficiary not found\n");
+    cashTransfer();
+   }
+   if(accounts[from_index].balance<amount){
+    printf("the mony in your account not enough\n");
+    cashTransfer();
+   }
+accounts[from_index].balance-=amount;
+accounts[to_index].balance+=amount;
+printf("transfer successful\n");
+printf("/*////////////////////////////////////////*/\n");
+u8 Case;
+printf("if you want to continue enter:1\n");
+printf("if you want to exist enter :2\n");
+
+switch (Case)
+{
+case 1:
+    userSettings();
+    break;
+case 2:
+return;
+break;
+default:
+printf("the number you  entered incorrect");
+    break;
+}
+
 }
 /***************** choose loan from schedual *******************/
 applyForLoan()
@@ -73,8 +126,57 @@ applyForLoan()
 /***************** track the installments *******************/
 trackingLoan()
 {
+    u32 id_loan,id_account;
+
+    printf("hello in traking loan serves for user \n");
+    printf("\n/*///////////////////////////*/\n");
+    printf("enter your bank id\n");
+    scanf("%d",&id_account);
+    printf("enter the loan id\n");
+    scanf("%d",&id_loan);
+    u8 i=0;
+for(i;i<loancount;i++){
+    if ((loans[i].bank_id==id_account)&&(loans[i].loan_id==id_loan))
+{
+printf("your name:%s\naccount_id:%d\n loan_id:%d\n amount:%d\n remaning:%d\n duration at month:%d",loans[i].name,loans[i].bank_id,loans[i].loan_id,loans[i].money_loan,loans[i].remaning_balanc,loans[i].duration_months);
+
+}
+
+}
+if(i==loancount){
+    printf("incorrect account id or loan id ");
+        u8 count;
+        printf("if you want to try again enter :1\n");
+        printf("if you want to exist enter :2\n");
+        printf("if you want to go to home enter :3\n");
+        printf("enter your chose:");
+        scanf("%d",&count);
+        switch (count)
+        {
+        case 1:
+            trackingLoan();
+            break;
+        case 2:
+         return ;
+         break;
+       case 3:
+         userSettings();
+         break;
+        default:
+        printf("the number you enter in correct ");
+            break;
+    }
+}
+
+
+    
 }
 /***************** rite a massage from user *******************/
 customerSupport()
 {
+    u8 arry_support[300];
+printf("enter the problem you have \n");
+fgets(arry_support,sizeof(arry_support),stdin);
+arry_support[strcspn(arry_support, "\n")] = 0;
+
 }
