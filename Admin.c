@@ -1,11 +1,11 @@
+#include "HeaderFiles.h"
 
-#include"typedef.h"
 /************* admin function ************/
 void adminSettings()
 {
     /*every function will contain option "Go back for admin options"*/
 
-   u8 choice = 0;
+    u8 choice = 0;
     while (1)
     {
         printf("1.create account\n");
@@ -55,32 +55,30 @@ void adminSettings()
 }
 
 /************* create acc ************/
-createAccount()
+void reateAccount()
 {
-    printf("hello in create accont serves\n");
-    printf("\npleas enter the account user name ")
 }
 /**************update*****************/
-updateAccount()
+void updateAccount()
 {
 }
 /**************delete*****************/
-deleteAccount()
+void deleteAccount()
 {
 }
 /**************display info*****************/
-displayUserInfo()
+void displayUserInfo()
 {
 }
 /**************loan informayion*****************/
-loanInformation()
+void loanInformation()
 {
 }
 /**************schedual pattern*****************/
-scheduleLoans()
+void scheduleLoans()
 {
 }
 /**************tech support*****************/
-supportSection()
+void supportSection()
 {
 }
