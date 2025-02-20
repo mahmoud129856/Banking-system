@@ -55,12 +55,170 @@ void adminSettings()
 }
 
 /************* create acc ************/
-void reateAccount()
+void createAccount()
 {
 }
 /**************update*****************/
 void updateAccount()
 {
+
+    u32 id;
+    u8 flag = 0, i;
+    u8 check[20], choice, confirm;
+
+    printf("Please enter your ID: ");
+    scanf("%lu", &id);
+    for (i = 0; i < userCount; i++)
+    {
+        if (accounts[i].Id == id)
+        {
+            flag = 1;
+        invalid:
+        all:
+            printf("\n1.update name\n");
+            printf("2. update age\n");
+            printf("3. update adderess\n");
+            printf("4. update account Type\n");
+            printf("5. update passward\n");
+            printf("6. update all\n");
+            printf("7. back\n");
+            printf("\n\nEnter your choice: ");
+
+            scanf("%d", &choice);
+
+            fflush(stdin);
+            switch (choice)
+            {
+            case 1:
+
+                printf("Enter new departure city: ");
+
+                gets(check);
+                printf("(1). confirm\n");
+                printf("(2). back\n");
+                printf("\nEnter your choice: ");
+                scanf("%d", &confirm);
+                switch (confirm)
+                {
+                case 1:
+                    strcpy(trip[i].departureCity, check);
+                    printf("\n******updated successfully******\n\n");
+                    goto all;
+
+                case 2:
+                    printf("\n***NO changes occurred***\n");
+                    goto all;
+                }
+
+            case 2:
+                printf("Enter new departure time: ");
+                gets(check);
+                printf("(1). confirm\n");
+                printf("(2). back\n");
+                printf("\nEnter your choice: ");
+                scanf("%d", &confirm);
+                switch (confirm)
+                {
+                case 1:
+                    strcpy(trip[i].departureTime, check);
+                    printf("\n******updated successfully******\n\n");
+                    goto all;
+
+                case 2:
+                    printf("\n***NO changes occurred***\n");
+                    goto all;
+                }
+
+            case 3:
+                printf("Enter new arrival city: ");
+                gets(check);
+                printf("(1). confirm\n");
+                printf("(2). back\n");
+                printf("\nEnter your choice: ");
+                scanf("%d", &confirm);
+                switch (confirm)
+                {
+                case 1:
+                    strcpy(trip[i].arrivalCity, check);
+                    printf("\n******updated successfully******\n\n");
+                    goto all;
+
+                case 2:
+                    printf("\n***NO changes occurred***\n");
+                    goto all;
+                }
+
+            case 4:
+                printf("Enter new arrival time: ");
+                gets(check);
+                printf("(1). confirm\n");
+                printf("(2). back\n");
+                printf("\nEnter your choice: ");
+                scanf("%d", &confirm);
+                switch (confirm)
+                {
+                case 1:
+                    strcpy(trip[i].arrivalTime, check);
+                    printf("\n******updated successfully******\n\n");
+                    goto all;
+
+                case 2:
+                    printf("\n***NO changes occurred***\n");
+                    goto all;
+                }
+
+            case 5:
+                printf("Enter new flight date: ");
+                gets(check);
+                printf("(1). confirm\n");
+                printf("(2). back\n");
+                printf("\nEnter your choice: ");
+                scanf("%d", &confirm);
+                switch (confirm)
+                {
+                case 1:
+                    strcpy(trip[i].flightDate, check);
+                    printf("\n******updated successfully******\n\n");
+                    goto all;
+
+                case 2:
+                    printf("\n***NO changes occurred***\n");
+                    goto all;
+                }
+
+            case 6:
+                printf("\n\nEnter new departure city: ");
+                gets(trip[i].departureCity);
+
+                printf("Enter new departure time: ");
+                gets(trip[i].departureTime);
+                printf("Enter new arrival city: ");
+                gets(trip[i].arrivalCity);
+
+                printf("Enter new arrival time: ");
+                gets(trip[i].arrivalTime);
+
+                printf("Enter new flight date: ");
+                gets(trip[i].flightDate);
+
+                printf("\n\n***Flight schedule updated successfully!***\n\n");
+                goto all;
+
+            case 7:
+                admin_Settings();
+                break;
+
+            default:
+                printf("Invalid Input!");
+                goto all;
+            }
+        }
+    }
+    if (!flag)
+    {
+        printf("\nFlight schedule not found!\n\n");
+        admin_Settings();
+    }
 }
 /**************delete*****************/
 void deleteAccount()

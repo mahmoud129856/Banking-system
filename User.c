@@ -173,11 +173,42 @@ void trackingLoan()
         }
     }
 }
-/***************** rite a massage from user *******************/
-void customerSupport()
+/***************** write a massage from user *******************/
+void customerSupport(void)
 {
-    u8 arry_support[300];
-    printf("enter the problem you have \n");
-    fgets(arry_support, sizeof(arry_support), stdin);
-    arry_support[strcspn(arry_support, "\n")] = 0;
+
+    u32 A;
+    u8 choice;
+    printf("Please ,Enter your ID: \n ");
+    scanf("%d", &A);
+    for (u8 i = 0; i <= userCount; i++)
+    {
+        if (A == accounts[i].Id)
+        {
+
+            printf("Please, Add your complaints ! \n");
+            fflush(stdin);
+            gets(accounts[i].complain);
+
+            printf("\n");
+
+            printf("*************** Thanks for your Note ***************");
+            printf("1.Back\n2.Exit");
+            scanf("%d", &choice);
+            switch (choice)
+            {
+            case 1:
+                userSettings();
+                break;
+            case 2:
+                return;
+            default:
+                printf("invaild choice!");
+            }
+        }
+        else
+        {
+            printf("invaild user!");
+        }
+    }
 }
