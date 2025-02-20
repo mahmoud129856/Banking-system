@@ -10,6 +10,7 @@ typedef unsigned long int u32;
 typedef long int s32;
 typedef unsigned short int u16;
 typedef short int s16;
+typedef unsigned long long int u64;
 #endif
 
 /**************** Typedef *****************/
@@ -24,7 +25,7 @@ typedef struct
     u8 address[100];       /*address of user*/
     u8 acountType[100];    /*Savings/Checking*/
     u32 password;          /*of user*/
-    u32 balance;
+    u64 balance;
     u32 complain[500];
 
 } account;
@@ -45,8 +46,6 @@ typedef struct
 account accounts[MAX_USER]; // array of accounts
 loan loans[MAX_LOANS];      // array of loans
 
-u16 userCount = 0; // number of users in system
-u16 loancount = 0; // هنا ضفت عدد الloan الي في ال array بتاعتي علشان تسهل عليه عمليت الcheck بردو
 /**************Global variables***************/
 
 void adminSettings();

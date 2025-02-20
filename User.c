@@ -1,5 +1,7 @@
 #include "HeaderFiles.h"
 
+extern u16 userCount;
+extern u16 loancount;
 /************** User function *******************/
 void userSettings()
 {

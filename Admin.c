@@ -1,6 +1,7 @@
 #include "HeaderFiles.h"
 
 /************* admin function ************/
+extern u16 userCount;
 void adminSettings()
 {
     /*every function will contain option "Go back for admin options"*/
@@ -57,14 +58,126 @@ void adminSettings()
 /************* create acc ************/
 void createAccount()
 {
+    if ((userCount < MAX_USER))
+    {
+        u32 id;
+        u8 choice = 0, choice1, count, i = 0;
+
+        fflush(stdin);
+
+        printf("Enter customer name: ");
+        gets(accounts[userCount].Name);
+
+        for (count = 0; count <= userCount; count++)
+        {
+        invalid:
+            printf("\nEnter customer ID:");
+            if (scanf("%lu", &id) != 1)
+            {
+                printf("Invalid Input!");
+                scanf("%*[^\n]");
+                goto invalid;
+            }
+            if ((accounts[count].Id) != id)
+            {
+                accounts[userCount].Id = id;
+                break;
+            }
+            else
+            {
+                printf("Invalid!!!Thers is another account With This ID\n");
+                printf("try this available ID: '%d'\n", &i);
+                goto invalid;
+            }
+        }
+    invalid1:
+
+        printf("Enter customer age:");
+        scanf("%i", &accounts[userCount].age);
+        fflush(stdin);
+        printf("Enter customer address:");
+        gets(accounts[userCount].address);
+
+        printf("Enter account type:");
+        gets(accounts[userCount].acountType);
+
+    invalid10:
+        printf("Enter The initial balance:");
+        if (scanf("%llu", &accounts[userCount].balance) != 1)
+        {
+            printf("Invalid Input\n!");
+            scanf("%*[^\n]");
+            goto invalid10;
+        }
+
+    invalid11:
+        printf("Enter initial password:");
+        if (scanf("%i", &accounts[userCount].password) != 1)
+        {
+            printf("Invalid Input\n!");
+            scanf("%*[^\n]");
+            goto invalid11;
+        }
+
+        printf("1. Save The Informatiom\n");
+        printf("2. To change \n");
+        printf("Enter your choice: ");
+        scanf("%i", &choice1);
+        switch (choice1)
+        {
+        case 1:
+            printf("\n...You Add new account Successfully...\n");
+            userCount++;
+            break;
+        case 2:
+            createAccount();
+            break;
+        }
+        printf("\n(1) Admin option\n");
+        printf("(2) To Quit\n");
+        printf("Enter your choice: ");
+        scanf("%i", &choice);
+        switch (choice)
+        {
+        case 1:
+            adminSettings();
+        case 2:
+            return (0);
+            break;
+        }
+    }
+    else
+    {
+        int choice = 0;
+        printf("\nYou can't create new account... The System Is Full !!!\n");
+    Invalid:
+        printf("\n(1) to Admin option\n");
+        printf("(2) to Quit\n");
+        printf("Enter your choice: ");
+        scanf("%i", &choice);
+        switch (choice)
+        {
+        case 1:
+            adminSettings();
+            break;
+        case 2:
+            return (0);
+            break;
+        default:
+            printf("Invalid Input!");
+            goto invalid;
+        }
+    }
 }
+
 /**************update*****************/
 void updateAccount()
 {
 
-    u32 id;
+    u32 check[20], id;
     u8 flag = 0, i;
-    u8 check[20], choice, confirm;
+    u8 choice, confirm;
+    u64 try;
 
     printf("Please enter your ID: ");
     scanf("%lu", &id);
@@ -79,9 +192,10 @@ void updateAccount()
             printf("2. update age\n");
             printf("3. update adderess\n");
             printf("4. update account Type\n");
-            printf("5. update passward\n");
-            printf("6. update all\n");
-            printf("7. back\n");
+            printf("5. update password\n");
+            printf("6. update balance\n");
+            printf("7. update all\n");
+            printf("8. back\n");
             printf("\n\nEnter your choice: ");
 
             scanf("%d", &choice);
@@ -91,7 +205,7 @@ void updateAccount()
             {
             case 1:
 
-                printf("Enter new departure city: ");
+                printf("Enter new name: ");
 
                 gets(check);
                 printf("(1). confirm\n");
@@ -101,7 +215,7 @@ void updateAccount()
                 switch (confirm)
                 {
                 case 1:
-                    strcpy(trip[i].departureCity, check);
+                    strcpy(accounts[i].Name, check);
                     printf("\n******updated successfully******\n\n");
                     goto all;
 
@@ -111,8 +225,8 @@ void updateAccount()
                 }
 
             case 2:
-                printf("Enter new departure time: ");
-                gets(check);
+                printf("Enter new age: ");
+                scanf("%d", &try);
                 printf("(1). confirm\n");
                 printf("(2). back\n");
                 printf("\nEnter your choice: ");
@@ -120,7 +234,7 @@ void updateAccount()
                 switch (confirm)
                 {
                 case 1:
-                    strcpy(trip[i].departureTime, check);
+                    accounts[i].age = try;
                     printf("\n******updated successfully******\n\n");
                     goto all;
 
@@ -130,7 +244,7 @@ void updateAccount()
                 }
 
             case 3:
-                printf("Enter new arrival city: ");
+                printf("Enter new adderess: ");
                 gets(check);
                 printf("(1). confirm\n");
                 printf("(2). back\n");
@@ -139,7 +253,7 @@ void updateAccount()
                 switch (confirm)
                 {
                 case 1:
-                    strcpy(trip[i].arrivalCity, check);
+                    strcpy(accounts[i].address, check);
                     printf("\n******updated successfully******\n\n");
                     goto all;
 
@@ -149,7 +263,7 @@ void updateAccount()
                 }
 
             case 4:
-                printf("Enter new arrival time: ");
+                printf("Enter new account type ");
                 gets(check);
                 printf("(1). confirm\n");
                 printf("(2). back\n");
@@ -158,7 +272,7 @@ void updateAccount()
                 switch (confirm)
                 {
                 case 1:
-                    strcpy(trip[i].arrivalTime, check);
+                    strcpy(accounts[i].acountType, check);
                     printf("\n******updated successfully******\n\n");
                     goto all;
 
@@ -168,8 +282,8 @@ void updateAccount()
                 }
 
             case 5:
-                printf("Enter new flight date: ");
-                gets(check);
+                printf("Enter new passowrd: ");
+                scanf("%d", &try);
                 printf("(1). confirm\n");
                 printf("(2). back\n");
                 printf("\nEnter your choice: ");
@@ -177,7 +291,7 @@ void updateAccount()
                 switch (confirm)
                 {
                 case 1:
-                    strcpy(trip[i].flightDate, check);
+                    accounts[i].password = try;
                     printf("\n******updated successfully******\n\n");
                     goto all;
 
@@ -187,37 +301,60 @@ void updateAccount()
                 }
 
             case 6:
-                printf("\n\nEnter new departure city: ");
-                gets(trip[i].departureCity);
+                printf("Enter new balance: ");
+                scanf("%llu", &try);
+                printf("(1). confirm\n");
+                printf("(2). back\n");
+                printf("\nEnter your choice: ");
+                scanf("%d", &confirm);
+                switch (confirm)
+                {
+                case 1:
+                    accounts[i].balance = try;
+                    printf("\n******updated successfully******\n\n");
+                    goto all;
 
-                printf("Enter new departure time: ");
-                gets(trip[i].departureTime);
-                printf("Enter new arrival city: ");
-                gets(trip[i].arrivalCity);
+                case 2:
+                    printf("\n***NO changes occurred***\n");
+                    goto all;
+                }
 
-                printf("Enter new arrival time: ");
-                gets(trip[i].arrivalTime);
+            case 7:
+                printf("\n\nEnter new name: ");
+                gets(accounts[i].Name);
 
-                printf("Enter new flight date: ");
-                gets(trip[i].flightDate);
+                printf("\n\nEnter new age: ");
+                scanf("%d", &accounts[i].age);
+                fflush(stdin);
+                printf("\n\nEnter new adderess: ");
+                gets(accounts[i].address);
+
+                printf("\n\nEnter new account type: ");
+                gets(accounts[i].acountType);
+
+                printf("\n\nEnter new password: ");
+                scanf("%d", &accounts[i].password);
+
+                printf("\n\nEnter new balance: ");
+                scanf("%llu", &accounts[i].balance);
 
                 printf("\n\n***Flight schedule updated successfully!***\n\n");
                 goto all;
 
-            case 7:
-                admin_Settings();
+            case 8:
+                adminSettings();
                 break;
 
             default:
-                printf("Invalid Input!");
+                printf("Invalid Input!\n");
                 goto all;
             }
         }
     }
     if (!flag)
     {
-        printf("\nFlight schedule not found!\n\n");
-        admin_Settings();
+        printf("\naccount not exist in our system!\n\n");
+        adminSettings();
     }
 }
 /**************delete*****************/
