@@ -87,7 +87,7 @@ ID:
         negative:
             printf("Please,Enter the amount ! \n");
             scanf("%d", &z);
-            if (z > 0 && checkIfPossible(z) == 1)
+            if (z > 0 && z<= 100000)
             {
                 accounts[userIndex].balance += z;
                 printf("Deposit Successful\n");
