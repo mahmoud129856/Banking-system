@@ -53,19 +53,85 @@ void userSettings()
     }
 }
 /***************** add money *******************/
-void depositCash()
+U depositCash()
 {
+    u32 A, B;                                          // A >> ID , B >> password
+    u8 IDFlag = 0, PASSFlag = 0, i, userIndex, choice; // for check on them
+    u64 z;
+ID:
+    printf("Please,Enter Your ID: \n");
+    scanf("%d", &A);
+    printf("Please,Enter Your Password : \n");
+    scanf("%d", &B);
+
+    for (i = 0; i <= userCount; i++)
+    {
+        if (A == accounts[i].Id)
+        {
+            IDFlag = 1;
+            userIndex = i;
+        }
+    }
+
+    if (B == accounts[userIndex].password)
+    {
+        PASSFlag = 1;
+    }
+
+    switch (IDFlag)
+    {
+    case 1:
+        switch (PASSFlag)
+        {
+        case 1:
+        negative:
+            printf("Please,Enter the amount ! \n");
+            scanf("%d", &z);
+            if (z > 0 && checkIfPossible(z) == 1)
+            {
+                accounts[userIndex].balance += z;
+                printf("Deposit Successful\n");
+                printf("1.continue \n2.Quit\n");
+                scanf("%d", &choice);
+                switch (choice)
+                {
+                case 1:
+                    userSettings();
+                    break;
+                case 2:
+                    return;
+                }
+            }
+            else
+            {
+                printf("No money added ,the maximum amount '100.000' '100K' ,please try again! \n ");
+                goto negative;
+            }
+            break;
+        case 0:
+
+            printf("wrong password try again\n");
+            goto ID;
+            break;
+        }
+    case 0:
+
+        printf("wrong ID try again\n");
+        goto ID;
+        break;
+    }
 }
+
 /***************** take off money *******************/
-void withdrawCash()
+U withdrawCash()
 {
 }
 /***************** show the money *******************/
-void checkBalance()
+U checkBalance()
 {
 }
 /***************** send money *******************/
-void cashTransfer()
+U cashTransfer()
 {
     u32 form_id, to_id;
     u8 from_index = 0, to_index = 0;
@@ -127,11 +193,11 @@ void cashTransfer()
     }
 }
 /***************** choose loan from schedual *******************/
-void applyForLoan()
+U applyForLoan()
 {
 }
 /***************** track the installments *******************/
-void trackingLoan()
+U trackingLoan()
 {
     u32 id_loan, id_account;
 
@@ -176,7 +242,7 @@ void trackingLoan()
     }
 }
 /***************** write a massage from user *******************/
-void customerSupport(void)
+U customerSupport(void)
 {
 
     u32 A;

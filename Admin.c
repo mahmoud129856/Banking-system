@@ -2,7 +2,7 @@
 
 /************* admin function ************/
 extern u16 userCount;
-void adminSettings()
+U adminSettings()
 {
     /*every function will contain option "Go back for admin options"*/
 
@@ -56,7 +56,7 @@ void adminSettings()
 }
 
 /************* create acc ************/
-void createAccount()
+U createAccount()
 {
     if ((userCount < MAX_USER))
     {
@@ -171,7 +171,7 @@ void createAccount()
 }
 
 /**************update*****************/
-void updateAccount()
+U updateAccount()
 {
 
     u32 check[20], id;
@@ -358,22 +358,22 @@ void updateAccount()
     }
 }
 /**************delete*****************/
-void deleteAccount()
+U deleteAccount()
 {
 }
 /**************display info*****************/
-void displayUserInfo()
+U displayUserInfo()
 {
 }
 /**************loan informayion*****************/
-void loanInformation()
+U loanInformation()
 {
 }
 /**************schedual pattern*****************/
-void scheduleLoans()
+U scheduleLoans()
 {
 }
 /**************tech support*****************/
-void supportSection()
+U supportSection()
 {
 }

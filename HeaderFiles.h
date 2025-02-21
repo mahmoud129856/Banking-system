@@ -11,11 +11,13 @@ typedef long int s32;
 typedef unsigned short int u16;
 typedef short int s16;
 typedef unsigned long long int u64;
+typedef void U;
 #endif
 
 /**************** Typedef *****************/
 #define MAX_USER 100
 #define MAX_LOANS 100
+#define MAX_AMOUNT_PER_TRANSACTION 100000
 /*************** macros. section *************/
 typedef struct
 {
@@ -47,25 +49,25 @@ account accounts[MAX_USER]; // array of accounts
 loan loans[MAX_LOANS];      // array of loans
 
 /**************Global variables***************/
-
-void adminSettings();
-void userSettings();
-void adminLogin();
-void userLogin();
-void createAccount();
-void updateAccount();
-void deleteAccount();
-void displayUserInfo();
-void loanInformation();
-void scheduleLoans();
-void supportSection();
-void systemFace();
-void depositCash();
-void withdrawCash();
-void checkBalance();
-void cashTransfer();
-void applyForLoan();
-void trackingLoan();
-void customerSupport();
-
-/**************functions  Prototype**********/
+U adminSettings();
+U adminLogin();
+U createAccount();
+U updateAccount();
+U deleteAccount();
+U displayUserInfo();
+U loanInformation();
+U scheduleLoans();
+U supportSection();
+U systemFace();
+u8 checkIfPossible();
+/**************Admin functions  Prototype**********/
+U userSettings();
+U userLogin();
+U depositCash();
+U withdrawCash();
+U checkBalance();
+U cashTransfer();
+U applyForLoan();
+U trackingLoan();
+U customerSupport();
+/**************User functions  Prototype**********/

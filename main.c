@@ -1,7 +1,7 @@
 #include "HeaderFiles.h"
 u16 userCount = 0; // number of users in system
 u16 loancount = 0; // هنا ضفت عدد الloan الي في ال array بتاعتي علشان تسهل عليه عمليت الcheck بردو
-void systemFace(void);
+
 int main()
 {
     systemFace();
@@ -35,12 +35,35 @@ void systemFace()
     }
 }
 /****************** admin login ****************/
-adminLogin()
+U adminLogin()
 {
 }
 
 /****************** user login ****************/
 
-userLogin()
+U userLogin()
 {
+}
+
+/******************check transaction ****************/
+u8 checkIfPossible(u64 amount)
+{
+    u8 Mflag = 0, Lflag = 0, final = -1;
+    u8 count;
+    for (count = 0; count < userCount; count++)
+    {
+        if (accounts[count].balance >= amount)
+        {
+            Mflag = 1;
+        }
+        if (MAX_AMOUNT_PER_TRANSACTION >= amount)
+        {
+            Lflag = 1;
+        }
+        if (Mflag && Lflag)
+        {
+            final = 1;
+        }
+    }
+    return final;
 }
