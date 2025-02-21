@@ -53,7 +53,7 @@ void userSettings()
     }
 }
 /***************** add money *******************/
-U depositCash()
+void depositCash()
 {
     u32 A, B;                                          // A >> ID , B >> password
     u8 IDFlag = 0, PASSFlag = 0, i, userIndex, choice; // for check on them
@@ -105,33 +105,64 @@ ID:
             else
             {
                 printf("No money added ,the maximum amount '100.000' '100K' ,please try again! \n ");
-                goto negative;
-            }
-            break;
-        case 0:
 
-            printf("wrong password try again\n");
-            goto ID;
-            break;
+                printf("1.try again \n2.choose another service\n");
+                scanf("%d", &choice);
+                switch (choice)
+                {
+                case 1:
+                    goto negative;
+                    break;
+                case 2:
+                    userSettings();
+                }
+                break;
+            case 0:
+
+                printf("wrong password try again\n");
+
+                printf("1.try again \n2.choose another service\n");
+                scanf("%d", &choice);
+
+                switch (choice)
+                {
+                case 1:
+                    goto ID;
+                    break;
+                case 2:
+                    userSettings();
+                }
+
+                break;
+            }
         }
     case 0:
 
         printf("wrong ID try again\n");
-        goto ID;
+        printf("1.try again \n2.choose another service\n");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            goto ID;
+            break;
+        case 2:
+            userSettings();
+        }
         break;
     }
 }
 
 /***************** take off money *******************/
-U withdrawCash()
+void withdrawCash()
 {
 }
 /***************** show the money *******************/
-U checkBalance()
+void checkBalance()
 {
 }
 /***************** send money *******************/
-U cashTransfer()
+void cashTransfer()
 {
     u32 form_id, to_id;
     u8 from_index = 0, to_index = 0;
@@ -193,11 +224,11 @@ U cashTransfer()
     }
 }
 /***************** choose loan from schedual *******************/
-U applyForLoan()
+void applyForLoan()
 {
 }
 /***************** track the installments *******************/
-U trackingLoan()
+void trackingLoan()
 {
     u32 id_loan, id_account;
 
@@ -242,26 +273,29 @@ U trackingLoan()
     }
 }
 /***************** write a massage from user *******************/
-U customerSupport(void)
+void customerSupport(void)
 {
-
+    u8 flag = 0, choice;
     u32 A;
-    u8 choice;
+id:
     printf("Please ,Enter your ID: \n ");
     scanf("%d", &A);
-    for (u8 i = 0; i <= userCount; i++)
+    for (int i = 0; i <= userCount; i++)
     {
         if (A == accounts[i].Id)
         {
-
+            flag = 1;
+        }
+        if (flag)
+        {
             printf("Please, Add your complaints ! \n");
             fflush(stdin);
             gets(accounts[i].complain);
 
             printf("\n");
 
-            printf("*************** Thanks for your Note ***************");
-            printf("1.Back\n2.Exit");
+            printf("*************** Thanks for your Note ***************\n\n");
+            printf("1.continue \n2.Quit");
             scanf("%d", &choice);
             switch (choice)
             {
@@ -270,13 +304,22 @@ U customerSupport(void)
                 break;
             case 2:
                 return;
-            default:
-                printf("invaild choice!");
+                break;
             }
         }
         else
         {
-            printf("invaild user!");
+            printf("invaild ID!\n");
+            printf("1.try again \n2.choose another service\n");
+            scanf("%d", &choice);
+            switch (choice)
+            {
+            case 1:
+                goto id;
+                break;
+            case 2:
+                userSettings();
+            }
         }
     }
 }
