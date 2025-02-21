@@ -70,4 +70,5 @@ U cashTransfer();
 U applyForLoan();
 U trackingLoan();
 U customerSupport();
+int search1();
 /**************User functions  Prototype**********/

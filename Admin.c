@@ -1,5 +1,10 @@
 #include "HeaderFiles.h"
 
+/****************** admin login ****************/
+U adminLogin()
+{
+}
+
 /************* admin function ************/
 extern u16 userCount;
 U adminSettings()
@@ -364,6 +369,18 @@ U deleteAccount()
 /**************display info*****************/
 U displayUserInfo()
 {
+    u8 IdIndex;
+    IdIndex = search1();
+    printf("\n Account Information:\n");
+    printf("===============================\n");
+    printf(" Account Holder : %s\n", accounts[IdIndex].Name);
+    printf(" Current Balance: %d EGP\n", accounts[IdIndex].balance);
+    printf(" Account type : %s\n", accounts[IdIndex].acountType);
+    printf(" Current age: %d \n", accounts[IdIndex].age);
+    printf(" Current adderss: %s \n", accounts[IdIndex].address);
+
+    // printf(" Created Date   : %s\n", account.created_date);
+    printf("===============================\n");
 }
 /**************loan informayion*****************/
 U loanInformation()
@@ -373,7 +390,49 @@ U loanInformation()
 U scheduleLoans()
 {
 }
-/**************tech support*****************/
+
 U supportSection()
 {
+}
+/**************system face*****************/
+void systemFace()
+{
+    int choice = 0;
+    while (1)
+    {
+        printf("1.Admin Moode\n");
+        printf("2.User Moode\n");
+        printf("3.Quit\n");
+        printf("Enter your choice:");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            adminSettings();
+            break;
+        case 2:
+            userSettings();
+            break;
+        case 3:
+            return 0;
+        default:
+            printf("Invalid choice!\n");
+        }
+    }
+}
+int search1()
+{
+    u64 id;
+    u8 i;
+    printf("Enter account ID: ");
+    scanf("%d", &id);
+    for (i = 0; i < userCount; i++)
+    {
+        if (accounts[i].Id == id)
+        {
+            return i;
+        }
+    }
+    printf("Account not found.\n");
+    userSettings();
 }

@@ -1,5 +1,9 @@
 #include "HeaderFiles.h"
 
+U userLogin()
+{
+}
+/****************** user login ****************/
 extern u16 userCount;
 extern u16 loancount;
 /************** User function *******************/
@@ -87,7 +91,7 @@ ID:
         negative:
             printf("Please,Enter the amount ! \n");
             scanf("%d", &z);
-            if (z > 0 && z<= 100000)
+            if (z > 0 && z <= 100000)
             {
                 accounts[userIndex].balance += z;
                 printf("Deposit Successful\n");
@@ -165,7 +169,7 @@ void checkBalance()
 void cashTransfer()
 {
     u32 form_id, to_id;
-    u8 from_index = 0, to_index = 0;
+    s8 from_index = -1, to_index = -1;
     u32 amount;
 
     printf("hello in the transfer money serves\n ");
@@ -187,40 +191,43 @@ void cashTransfer()
             from_index = i;
         }
     }
-    if (from_index = 0)
+    if (from_index == -1)
     {
         printf("your id not found\n");
         cashTransfer();
     }
-    if (to_index = 0)
+    if (to_index == -1)
     {
         printf("the id beneficiary not found\n");
         cashTransfer();
     }
-    if (accounts[from_index].balance < amount)
+    if (!checkIfPossible(amount))
     {
         printf("the mony in your account not enough\n");
         cashTransfer();
     }
-    accounts[from_index].balance -= amount;
-    accounts[to_index].balance += amount;
-    printf("transfer successful\n");
-    printf("/*////////////////////////////////////////*/\n");
-    u8 Case;
-    printf("if you want to continue enter:1\n");
-    printf("if you want to exist enter :2\n");
-
-    switch (Case)
+    else
     {
-    case 1:
-        userSettings();
-        break;
-    case 2:
-        return;
-        break;
-    default:
-        printf("the number you  entered incorrect");
-        break;
+        accounts[from_index].balance -= amount;
+        accounts[to_index].balance += amount;
+        printf("transfer successful\n");
+        printf("/*////////////////////////////////////////*/\n");
+        u8 Case;
+        printf("if you want to continue enter:1\n");
+        printf("if you want to exist enter :2\n");
+        scanf("%d", &Case);
+        switch (Case)
+        {
+        case 1:
+            userSettings();
+            break;
+        case 2:
+            return;
+            break;
+        default:
+            printf("the number you  entered incorrect");
+            break;
+        }
     }
 }
 /***************** choose loan from schedual *******************/
@@ -322,4 +329,27 @@ id:
             }
         }
     }
+}
+
+/******************check transaction ****************/
+u8 checkIfPossible(u64 amount)
+{
+    u8 Mflag = 0, Lflag = 0, final = -1;
+    u8 count;
+    for (count = 0; count < userCount; count++)
+    {
+        if (accounts[count].balance >= amount)
+        {
+            Mflag = 1;
+        }
+        if (MAX_AMOUNT_PER_TRANSACTION >= amount)
+        {
+            Lflag = 1;
+        }
+        if (Mflag && Lflag)
+        {
+            final = 1;
+        }
+    }
+    return final;
 }
