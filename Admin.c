@@ -1,8 +1,62 @@
 #include "HeaderFiles.h"
-
+char Admin_Entering[10] = "$$SA00SA&&"
 /****************** admin login ****************/
-U adminLogin()
-{//
+U Admin_LogIn(char ID[])
+{
+    char New_ID[10];
+    int Result=-2;
+    int Flag=1;
+    int Flag1=1;
+
+    printf("Welcome Sir!!\n");
+    Label:
+    printf("Enter ID: ");
+    scanf("%s",&New_ID);
+    Result = memcmp(New_ID,Admin_Entering,10);
+    if(Result == 0)
+    {
+        adminSettings();
+    }
+    else
+    {
+        int Choice=0;
+        printf("Invalid ID!!!\n");
+        Label1:
+        printf("[1] to Try again\n");
+        printf("[2] to Main Page\n");
+        printf("[3] to Exit\n\n");
+        printf("Enter your Choice: ");
+        scanf("%i",&Choice);
+
+        switch(Choice)
+        {
+        case 1:
+            Flag++;
+            if(Flag<3)
+            {
+                goto Label;
+            }
+            else
+            {
+                return(0);
+            }
+         break;
+        case 2:
+            main();
+            break;
+        default:
+            printf("Invalid Choice!!\n");
+            Flag1++;
+            if(Flag1<3)
+            {
+                goto Label1;
+            }
+            else
+            {
+                return (0);
+            }
+        }
+    }
 }
 
 /************* admin function ************/
