@@ -11,19 +11,22 @@ U User_Login(void)
     int Flag3=0;
     int Choice=0;
 
+    printf("Welcome Back!!\n\n");
     Label2:
     printf("Enter Your Account ID: ");
-    scanf("%i",Account_ID);
+    fflush(stdin);
+    scanf("%i",&Account_ID);
     if(Account_ID < MAX_USER)
     {
-        printf("Invalid Account!!\n\n");
+        printf("valid Account!!\n\n");
         Label1:
         printf("Enter Your Account Password: ");
-        scanf("%i",Password);
+        fflush(stdin);
+        scanf("%i",&Password);
         if(Password == accounts[Account_ID].Password)
         {
-            printf("Valid Password!!\n");
-             userSettings();
+            printf("Valid Password!!\n\n");
+            User_Interface_Function();
         }
         else
         {
@@ -31,9 +34,9 @@ U User_Login(void)
 
         Label:
         printf("[1] to Try again\n");
-        printf("[2] to Main Page\n");
-        printf("[3] to Exit\n\n");
+        printf("[2] to Exit\n\n");
         printf("Enter your Choice: ");
+        fflush(stdin);
         scanf("%i",&Choice);
 
         switch(Choice)
@@ -42,27 +45,28 @@ U User_Login(void)
             Flag++;
             if(Flag<3)
             {
-                goto Label;
+                goto Label1;
             }
             else
             {
-                return(0);
+                ptr();
             }
          break;
         case 2:
-            main();
+            return(0);
             break;
         default:
             printf("Invalid Choice!!\n");
             Flag1++;
             if(Flag1<3)
             {
-                goto Label1;
+                goto Label;
             }
             else
             {
-                main();
+               return(0);
             }
+            break;
         }
 
         }
@@ -74,10 +78,10 @@ U User_Login(void)
         printf("Invlide Account ID!!!\n\n");
         Label3:
         printf("[1] to Try Again\n");
-        printf("[2] to main Page");
-        printf("[3] to Exit\n\n");
+        printf("[2] to Exit\n\n");
 
         printf("Enter Your Choice: ");
+        fflush(stdin);
         scanf("%i",&Choice);
         switch(Choice)
         {
@@ -89,14 +93,11 @@ U User_Login(void)
             }
             else
             {
-                return(0);
+              return(0);
             }
             break;
         case 2:
-            main();
-            break;
-        case 3:
-            exit(1);
+            return(0);
             break;
         default:
             printf("Invalid Choice!!\n\n");
@@ -107,9 +108,11 @@ U User_Login(void)
             }
             else
             {
-                main();
+                return(0);
             }
         }
+
+    }
 
     }
 /****************** user login ****************/
