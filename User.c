@@ -1,8 +1,117 @@
 #include "HeaderFiles.h"
 
-U userLogin()
+U User_Login(void)
 {
-}
+    int Account_ID;
+    int Password;
+    int Result=0;
+    int Flag=0;
+    int Flag1=0;
+    int Flag2=0;
+    int Flag3=0;
+    int Choice=0;
+
+    Label2:
+    printf("Enter Your Account ID: ");
+    scanf("%i",Account_ID);
+    if(Account_ID < MAX_USER)
+    {
+        printf("Invalid Account!!\n\n");
+        Label1:
+        printf("Enter Your Account Password: ");
+        scanf("%i",Password);
+        if(Password == accounts[Account_ID].Password)
+        {
+            printf("Valid Password!!\n");
+             userSettings();
+        }
+        else
+        {
+            printf("Invalid Password!!\n");
+
+        Label:
+        printf("[1] to Try again\n");
+        printf("[2] to Main Page\n");
+        printf("[3] to Exit\n\n");
+        printf("Enter your Choice: ");
+        scanf("%i",&Choice);
+
+        switch(Choice)
+        {
+        case 1:
+            Flag++;
+            if(Flag<3)
+            {
+                goto Label;
+            }
+            else
+            {
+                return(0);
+            }
+         break;
+        case 2:
+            main();
+            break;
+        default:
+            printf("Invalid Choice!!\n");
+            Flag1++;
+            if(Flag1<3)
+            {
+                goto Label1;
+            }
+            else
+            {
+                main();
+            }
+        }
+
+        }
+    }
+    else
+    {
+        int Choice=0;
+
+        printf("Invlide Account ID!!!\n\n");
+        Label3:
+        printf("[1] to Try Again\n");
+        printf("[2] to main Page");
+        printf("[3] to Exit\n\n");
+
+        printf("Enter Your Choice: ");
+        scanf("%i",&Choice);
+        switch(Choice)
+        {
+        case 1:
+            Flag2++;
+            if(Flag2<3)
+            {
+                goto Label2;
+            }
+            else
+            {
+                return(0);
+            }
+            break;
+        case 2:
+            main();
+            break;
+        case 3:
+            exit(1);
+            break;
+        default:
+            printf("Invalid Choice!!\n\n");
+            Flag3++;
+            if(Flag3<3)
+            {
+                goto Label3;
+            }
+            else
+            {
+                main();
+            }
+        }
+
+    }
 /****************** user login ****************/
 extern u16 userCount;
 extern u16 loancount;
