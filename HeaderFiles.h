@@ -62,7 +62,7 @@ U systemFace();
 u8 checkIfPossible();
 /**************Admin functions  Prototype**********/
 U userSettings();
-U userLogin();
+U User_Login(void);
 U depositCash();
 U withdrawCash();
 U checkBalance();
