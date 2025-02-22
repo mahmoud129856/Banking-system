@@ -1,7 +1,73 @@
 #include "HeaderFiles.h"
 char Admin_Entering[10] = "100k$$";
 /****************** admin login ****************/
+U Admin_LogIn(char ID[])
+{
+    char New_ID[10];
+<<<<<<< patch-8
+    int Result=-2;
+    int Flag=0;
+    int Flag1=0;
+=======
+    int Result = -2;
+    int Flag = 1;
+    int Flag1 = 1;
+>>>>>>> main
 
+    printf("Welcome Sir!!\n");
+Label:
+    printf("Enter ID: ");
+    scanf("%s", &New_ID);
+    Result = memcmp(New_ID, Admin_Entering, 10);
+    if (Result == 0)
+    {
+        Admin_Interface_Function();
+    }
+    else
+    {
+        int Choice = 0;
+        printf("Invalid ID!!!\n");
+    Label1:
+        printf("[1] to Try again\n");
+        printf("[2] to Exit\n\n");
+        printf("Enter your Choice: ");
+<<<<<<< patch-8
+        fflush(stdin);
+        scanf("%i",&Choice);
+=======
+        scanf("%i", &Choice);
+>>>>>>> main
+
+        switch (Choice)
+        {
+        case 1:
+            Flag++;
+            if (Flag < 3)
+            {
+                goto Label;
+            }
+            else
+            {
+                return (0);
+            }
+            break;
+        case 2:
+            return(0);
+            break;
+        default:
+            printf("Invalid Choice!!\n");
+            Flag1++;
+            if (Flag1 < 3)
+            {
+                goto Label1;
+            }
+            else
+            {
+                return(0);
+            }
+        }
+    }
+}
 
 /************* admin function ************/
 extern u16 userCount;
