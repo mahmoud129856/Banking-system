@@ -21,7 +21,14 @@ U User_Login(void)
         printf("valid Account!!\n\n");
         Label1:
         printf("Enter Your Account Password: ");
-
+<<<<<<< patch-9
+        fflush(stdin);
+        scanf("%i",&Password);
+        if(Password == accounts[Account_ID].Password)
+=======
+        scanf("%i",Password);
+        if(Password == accounts[Account_ID].password)
+>>>>>>> main
         {
             printf("Valid Password!!\n\n");
             User_Interface_Function();
@@ -111,6 +118,12 @@ U User_Login(void)
         }
 
     }
+<<<<<<< patch-9
+
+    }
+=======
+}
+>>>>>>> main
 
 /****************** user login ****************/
 extern u16 userCount;
