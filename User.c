@@ -6,9 +6,7 @@ U userLogin()
 /****************** user login ****************/
 extern u16 userCount;
 extern u16 loancount;
-
 /************** User function *******************/
-
 void userSettings()
 {
     u8 choice;
