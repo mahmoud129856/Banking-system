@@ -11,19 +11,20 @@ U User_Login(void)
     int Flag3=0;
     int Choice=0;
 
+    printf("Welcome Back!!\n\n");
     Label2:
     printf("Enter Your Account ID: ");
-    scanf("%i",Account_ID);
-    if(Account_ID < MAX_USER)
+    scanf("%i",&Account_ID);
+    if(Account_ID < Max_Users)
     {
-        printf("Invalid Account!!\n\n");
+        printf("valid Account!!\n\n");
         Label1:
         printf("Enter Your Account Password: ");
-        scanf("%i",Password);
+        scanf("%i",&Password);
         if(Password == accounts[Account_ID].Password)
         {
-            printf("Valid Password!!\n");
-             userSettings();
+            printf("Valid Password!!\n\n");
+            User_Interface_Function();
         }
         else
         {
@@ -46,7 +47,7 @@ U User_Login(void)
             }
             else
             {
-                return(0);
+                main();
             }
          break;
         case 2:
@@ -74,7 +75,7 @@ U User_Login(void)
         printf("Invlide Account ID!!!\n\n");
         Label3:
         printf("[1] to Try Again\n");
-        printf("[2] to main Page");
+        printf("[2] to main Page\n");
         printf("[3] to Exit\n\n");
 
         printf("Enter Your Choice: ");
@@ -89,7 +90,7 @@ U User_Login(void)
             }
             else
             {
-                return(0);
+               main();
             }
             break;
         case 2:
@@ -112,6 +113,7 @@ U User_Login(void)
         }
 
     }
+}
 /****************** user login ****************/
 extern u16 userCount;
 extern u16 loancount;
