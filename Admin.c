@@ -1,53 +1,53 @@
 #include "HeaderFiles.h"
-char Admin_Entering[10] = "$$SA00SA&&"
+char Admin_Entering[10] = "100k$$";
 /****************** admin login ****************/
 U Admin_LogIn(char ID[])
 {
     char New_ID[10];
-    int Result=-2;
-    int Flag=1;
-    int Flag1=1;
+    int Result = -2;
+    int Flag = 1;
+    int Flag1 = 1;
 
     printf("Welcome Sir!!\n");
-    Label:
+Label:
     printf("Enter ID: ");
-    scanf("%s",&New_ID);
-    Result = memcmp(New_ID,Admin_Entering,10);
-    if(Result == 0)
+    scanf("%s", &New_ID);
+    Result = memcmp(New_ID, Admin_Entering, 10);
+    if (Result == 0)
     {
         adminSettings();
     }
     else
     {
-        int Choice=0;
+        int Choice = 0;
         printf("Invalid ID!!!\n");
-        Label1:
+    Label1:
         printf("[1] to Try again\n");
         printf("[2] to Main Page\n");
         printf("[3] to Exit\n\n");
         printf("Enter your Choice: ");
-        scanf("%i",&Choice);
+        scanf("%i", &Choice);
 
-        switch(Choice)
+        switch (Choice)
         {
         case 1:
             Flag++;
-            if(Flag<3)
+            if (Flag < 3)
             {
                 goto Label;
             }
             else
             {
-                return(0);
+                return (0);
             }
-         break;
+            break;
         case 2:
             main();
             break;
         default:
             printf("Invalid Choice!!\n");
             Flag1++;
-            if(Flag1<3)
+            if (Flag1 < 3)
             {
                 goto Label1;
             }
