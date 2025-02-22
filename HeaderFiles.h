@@ -50,7 +50,7 @@ loan loans[MAX_LOANS];      // array of loans
 
 /**************Global variables***************/
 U adminSettings();
-U adminLogin();
+U Admin_LogIn(char ID[]);
 U createAccount();
 U updateAccount();
 U deleteAccount();
