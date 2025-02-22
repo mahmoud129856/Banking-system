@@ -21,9 +21,7 @@ U User_Login(void)
         printf("valid Account!!\n\n");
         Label1:
         printf("Enter Your Account Password: ");
-        fflush(stdin);
-        scanf("%i",&Password);
-        if(Password == accounts[Account_ID].Password)
+
         {
             printf("Valid Password!!\n\n");
             User_Interface_Function();
@@ -114,7 +112,6 @@ U User_Login(void)
 
     }
 
-    }
 /****************** user login ****************/
 extern u16 userCount;
 extern u16 loancount;
