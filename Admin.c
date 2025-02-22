@@ -5,8 +5,8 @@ U Admin_LogIn(char ID[])
 {
     char New_ID[10];
     int Result=-2;
-    int Flag=1;
-    int Flag1=1;
+    int Flag=0;
+    int Flag1=0;
 
     printf("Welcome Sir!!\n");
     Label:
@@ -15,7 +15,7 @@ U Admin_LogIn(char ID[])
     Result = memcmp(New_ID,Admin_Entering,10);
     if(Result == 0)
     {
-        adminSettings();
+        Admin_Interface_Function();
     }
     else
     {
@@ -23,9 +23,9 @@ U Admin_LogIn(char ID[])
         printf("Invalid ID!!!\n");
         Label1:
         printf("[1] to Try again\n");
-        printf("[2] to Main Page\n");
-        printf("[3] to Exit\n\n");
+        printf("[2] to Exit\n\n");
         printf("Enter your Choice: ");
+        fflush(stdin);
         scanf("%i",&Choice);
 
         switch(Choice)
@@ -42,7 +42,7 @@ U Admin_LogIn(char ID[])
             }
          break;
         case 2:
-            main();
+            return(0);
             break;
         default:
             printf("Invalid Choice!!\n");
@@ -53,7 +53,7 @@ U Admin_LogIn(char ID[])
             }
             else
             {
-                return (0);
+                return(0);
             }
         }
     }
@@ -419,6 +419,151 @@ U updateAccount()
 /**************delete*****************/
 U deleteAccount()
 {
+    int Account_ID;
+   int Size=0;
+
+    int Password;
+    int Result=0;
+    int Flag=0;
+    int Flag1=0;
+    int Flag2=0;
+    int Flag3=0;
+    int Choice=0;
+
+    Label2:
+    printf("Enter Your Account ID: ");
+    fflush(stdin);
+    scanf("%i",&Account_ID);
+    if(Account_ID < MAX_USER)
+    {
+        printf("valid Account!!\n\n");
+        Label1:
+        printf("Enter Your Account Password: ");
+        fflush(stdin);
+        scanf("%i",&Password);
+        if(Password == Account[Account_ID].Password)
+        {
+            int Choice=0;
+            printf("Valid Password!!\n\n");
+            printf("Are you sure You want to Delet Your Account?\nEnter [1] to Delete:");
+            scanf("%i",Choice);
+            if(Choice == 1)
+            {
+                accounts[Account_ID].Age = 0;
+                accounts[Account_ID].Balance=0;
+                accounts[Account_ID].Password=0;
+                accounts[Account_ID].Account_ID=0;
+                memset(accounts[Account_ID].Account_Type,'0',20);
+                memset(accounts[Account_ID].Address,'0',30);
+                memset(accounts[Account_ID].Name,'0',30);
+                memset(accounts[Account_ID].Complain,'0',250);
+               userCount--;
+                printf("\nAccount Deleted Successfullt!\n\n");
+                adminSettings();
+                return(0);
+            }
+            else
+            {
+                printf("Invalid Choise, Try Again Later!!\n");
+               adminSettings();
+            }
+
+        }
+        else
+        {
+            printf("Invalid Password!!\n");
+
+            Label:
+            printf("[1] to Try again\n");
+            printf("[2] to Admin Page\n");
+            printf("[3] to Exit\n\n");
+            printf("Enter your Choice: ");
+            fflush(stdin);
+            scanf("%i",&Choice);
+
+            switch(Choice)
+            {
+            case 1:
+                Flag++;
+                if(Flag<3)
+                {
+                    goto Label1;
+                }
+                else
+                {
+                   adminSettings();
+                    return(0);
+                }
+             break;
+            case 2:
+                adminSettings();
+                break;
+            default:
+                printf("Invalid Choice!!\n");
+                Flag1++;
+                if(Flag1<3)
+                {
+                    goto Label;
+                }
+                else
+                {
+                   adminSettings();
+                    return(0);
+                }
+                break;
+            }
+
+            }
+    }
+    else
+    {
+        int Choice=0;
+
+        printf("Invlide Account ID!!!\n\n");
+        Label3:
+        printf("[1] to Try Again\n");
+        printf("[2] to Admin Page\n");
+        printf("[3] to Exit\n\n");
+
+        printf("Enter Your Choice: ");
+        fflush(stdin);
+        scanf("%i",&Choice);
+        switch(Choice)
+        {
+        case 1:
+            Flag2++;
+            if(Flag2<3)
+            {
+                goto Label2;
+            }
+            else
+            {
+                adminSettings();
+               return(0);
+            }
+            break;
+        case 2:
+           adminSettings();
+            return(0);
+            break;
+        case 3:
+            exit(1);
+            break;
+        default:
+            printf("Invalid Choice!!\n\n");
+            Flag3++;
+            if(Flag3<3)
+            {
+                goto Label3;
+            }
+            else
+            {
+                adminSettings();
+                return(0);
+            }
+        }
+
+    }
 }
 /**************display info*****************/
 U displayUserInfo()
