@@ -13,6 +13,7 @@ typedef short int s16;
 typedef unsigned long long int u64;
 typedef void U;
 typedef float f32;
+typedef double f64;
 #endif
 
 /**************** Typedef *****************/
@@ -72,6 +73,6 @@ U cashTransfer();
 U applyForLoan();
 U trackingLoan();
 U customerSupport();
-int search1();
+int search1(seark);
 int (*ptr)(U);
 /**************User functions  Prototype**********/

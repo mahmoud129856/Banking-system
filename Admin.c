@@ -73,11 +73,10 @@ U adminSettings()
         printf("2.update account\n");
         printf("3.delete account\n");
         printf("4.Diplay info of User\n");          // all User inf or choose specific information
-        printf("5.loans information & decision\n"); // function will display all loans in a scedual and admin will choose one from them and confirm or refuse
-        printf("6.scedualence of loans\n");         // our available loans will be displayed in a sedual
-        printf("7.support section & decision\n");   // will show the problems and forward the problem for his section
-        printf("8.Go back\n");                      // main menu
-        printf("9.Exit\n");
+        printf("5.loans information & decision\n"); // function will display all loans in a scedual and admin will choose one from them and confirm or refuse        // our available loans will be displayed in a sedual
+        printf("6.support section & decision\n");   // will show the problems and forward the problem for his section
+        printf("7.Go back\n");                      // main menu
+        printf("8.Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
         switch (choice)
@@ -97,16 +96,14 @@ U adminSettings()
         case 5:
             loanInformation();
             break;
+
         case 6:
-            scheduleLoans();
-            break;
-        case 7:
             supportSection();
             break;
-        case 8:
+        case 7:
             systemFace();
             break;
-        case 9:
+        case 8:
             return 0;
             break;
         default:
@@ -128,32 +125,35 @@ U createAccount()
         printf("Enter customer name: ");
         gets(accounts[userCount].Name);
 
-        for (count = 0; count <= userCount; count++)
+    invalid:
+        printf("\nEnter customer ID:");
+        if (scanf("%lu", &id) != 1)
         {
-        invalid:
-            printf("\nEnter customer ID:");
-            if (scanf("%lu", &id) != 1)
-            {
-                printf("Invalid Input!");
-                scanf("%*[^\n]");
-                goto invalid;
-            }
-            if ((accounts[count].Id) != id)
-            {
-                accounts[userCount].Id = id;
-                break;
-            }
-            else
-            {
-                printf("Invalid!!!Thers is another account With This ID\n");
-                printf("try this available ID: '%d'\n", &i);
-                goto invalid;
-            }
+            printf("Invalid Input!");
+            scanf("%*[^\n]");
+            goto invalid;
         }
+        if (search1(id) == -1)
+        {
+            accounts[userCount].Id = id;
+        }
+        else
+        {
+            printf("Invalid!!!Thers is another account With This ID\n");
+            printf("try this available ID: '%d'\n", &i);
+            goto invalid;
+        }
+
     invalid1:
 
         printf("Enter customer age:");
-        scanf("%i", &accounts[userCount].age);
+        if (scanf("%i", &accounts[userCount].age) != 1)
+        {
+            printf("Invalid Input!");
+            scanf("%*[^\n]");
+            goto invalid1;
+        }
+
         fflush(stdin);
         printf("Enter customer address:");
         gets(accounts[userCount].address);
@@ -431,9 +431,12 @@ U deleteAccount()
     int Flag3 = 0;
     int Choice = 0;
     int Choice1 = 0;
+    int all;
 
 Label2:
-    Account_ID = search1();
+    printf("Enter account Id:");
+    scanf("%d", &all);
+    Account_ID = search1(all);
     if (Account_ID < MAX_USER && Account_ID >= 0)
     {
         printf("valid Account!!\n\n");
@@ -571,7 +574,10 @@ Label2:
 U displayUserInfo()
 {
     u8 IdIndex;
-    IdIndex = search1();
+    int all;
+    printf("Enter account id:");
+    scanf("%d", &all);
+    IdIndex = search1(all);
     printf("\n Account Information:\n");
     printf("===============================\n");
     printf(" Account Holder : %s\n", accounts[IdIndex].Name);
@@ -587,119 +593,7 @@ U displayUserInfo()
 U loanInformation()
 {
 }
-/**************schedual pattern*****************/
-U scheduleLoans()
-{
-    accounts[0].Id = 111;
-    accounts[0].password = 111;
-    u32 A, B;                                          // A >> ID , B >> password
-    u8 IDFlag = 0, PASSFlag = 1, i, userIndex, choice; // for check on them
-    u64 z;
-
-    userIndex = search1(); // our function to search for index of IDs
-    if (userIndex >= 0)
-    {
-        IDFlag = 1;
-    }
-    printf("Please,Enter Your Password :");
-    scanf("%d", &B);
-    // if( B == accounts[userIndex].password)
-    //   PASSFlag =1;
-
-    if (IDFlag)
-    {
-        if (PASSFlag)
-        {
-
-            u32 col[4][4] = {{20.000, 5, 1, 1750}, {30.000, 5, 2, 1750}, {40.000, 6, 2, 1700}, {50.000, 7, 3, 25000}};
-            u16 rows;
-            u16 choice;
-
-            printf("\n\n\n");
-            printf("    %-16s  %-16s %-16s %-16s \n\n", "Amount 'K'", "Interest R", "year", "monthly");
-            for (rows = 0; rows < 4; rows++)
-            {
-                printf("%d.\t", rows);
-
-                for (int i = 0; i < 4; i++)
-                {
-                    printf(" %-14d ", col[rows][i]);
-                }
-
-                printf("\n\n\n");
-            }
-
-            printf("Please ,choose your loan OR press '9' for customer support \n");
-            scanf("%d", &choice);
-            switch (choice)
-            {
-
-            case 0:
-
-                loans[userIndex].money_loan = 20000;
-                loans[userIndex].interest_rate = 5;
-                loans[userIndex].years = 1;
-                loans[userIndex].duration_months = 1750;
-                break;
-
-            case 1:
-
-                loans[userIndex].money_loan = 30000;
-                loans[userIndex].interest_rate = 5;
-                loans[userIndex].years = 1.5;
-                loans[userIndex].duration_months = 1750;
-                break;
-
-            case 2:
-
-                loans[userIndex].money_loan = 40000;
-                loans[userIndex].interest_rate = 7;
-                loans[userIndex].years = 2;
-                loans[userIndex].duration_months = 1700;
-                break;
-
-            case 3:
-
-                loans[userIndex].money_loan = 100000;
-                loans[userIndex].interest_rate = 10;
-                loans[userIndex].years = 4;
-                loans[userIndex].duration_months = 25000;
-                break;
-
-            case 9:
-
-                customerSupport();
-                break;
-            default:
-                printf("Invaild operation \n");
-                break;
-            }
-        }
-
-        else
-        {
-            printf("incorrect Password! \n");
-        }
-    }
-
-    else
-    {
-        printf("invaild ID !\n");
-    }
-
-    printf("\n****** Thanks for using our service ******\n");
-    printf("1.Goback\n2.Quit");
-    scanf("%d", &choice);
-    switch (choice)
-    {
-    case 1:
-        userSettings();
-        break;
-    case 2:
-        return;
-        break;
-    }
-}
+/**************support section*****************/
 
 U supportSection()
 {
@@ -707,7 +601,7 @@ U supportSection()
     u32 user_id;
     printf("enter the user id \n");
     scanf("%d", &user_id);
-    u8 idIndex = search1();
+    u8 idIndex = search1(user_id);
 
     if (idIndex >= 0)
     {
@@ -770,15 +664,12 @@ void systemFace()
         }
     }
 }
-int search1()
+int search1(u64 x)
 {
-    u64 id;
     u8 i;
-    printf("Enter account ID: ");
-    scanf("%d", &id);
     for (i = 0; i < userCount; i++)
     {
-        if (accounts[i].Id == id)
+        if (accounts[i].Id == x)
         {
             return i;
         }
