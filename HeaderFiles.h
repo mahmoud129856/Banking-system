@@ -71,4 +71,5 @@ U applyForLoan();
 U trackingLoan();
 U customerSupport();
 int search1();
+int (*ptr)(U);
 /**************User functions  Prototype**********/

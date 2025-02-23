@@ -4,126 +4,113 @@ U User_Login(void)
 {
     int Account_ID;
     int Password;
-    int Result=0;
-    int Flag=0;
-    int Flag1=0;
-    int Flag2=0;
-    int Flag3=0;
-    int Choice=0;
+    int Result = 0;
+    int Flag = 0;
+    int Flag1 = 0;
+    int Flag2 = 0;
+    int Flag3 = 0;
+    int Choice = 0;
 
     printf("Welcome Back!!\n\n");
-    Label2:
-    printf("Enter Your Account ID: ");
-    fflush(stdin);
-    scanf("%i",&Account_ID);
-    if(Account_ID < MAX_USER)
+Label2:
+    Account_ID = search1();
+    if (Account_ID < MAX_USER && Account_ID >= 0)
     {
         printf("valid Account!!\n\n");
-        Label1:
+    Label1:
         printf("Enter Your Account Password: ");
-<<<<<<< patch-9
-        fflush(stdin);
-        scanf("%i",&Password);
-        if(Password == accounts[Account_ID].Password)
-=======
-        scanf("%i",Password);
-        if(Password == accounts[Account_ID].password)
->>>>>>> main
+
+        scanf("%i", &Password);
+        if (Password == accounts[Account_ID].password)
+
         {
             printf("Valid Password!!\n\n");
-            User_Interface_Function();
+            userSettings();
         }
         else
         {
             printf("Invalid Password!!\n");
 
         Label:
-        printf("[1] to Try again\n");
-        printf("[2] to Exit\n\n");
-        printf("Enter your Choice: ");
-        fflush(stdin);
-        scanf("%i",&Choice);
+            printf("[1] to Try again\n");
+            printf("[2] to Exit\n\n");
+            printf("Enter your Choice: ");
+            fflush(stdin);
+            scanf("%i", &Choice);
 
-        switch(Choice)
-        {
-        case 1:
-            Flag++;
-            if(Flag<3)
+            switch (Choice)
             {
-                goto Label1;
+            case 1:
+                Flag++;
+                if (Flag < 3)
+                {
+                    goto Label1;
+                }
+                else
+                {
+                    ptr();
+                }
+                break;
+            case 2:
+                return (0);
+                break;
+            default:
+                printf("Invalid Choice!!\n");
+                Flag1++;
+                if (Flag1 < 3)
+                {
+                    goto Label;
+                }
+                else
+                {
+                    return (0);
+                }
+                break;
             }
-            else
-            {
-                ptr();
-            }
-         break;
-        case 2:
-            return(0);
-            break;
-        default:
-            printf("Invalid Choice!!\n");
-            Flag1++;
-            if(Flag1<3)
-            {
-                goto Label;
-            }
-            else
-            {
-               return(0);
-            }
-            break;
-        }
-
         }
     }
     else
     {
-        int Choice=0;
+        int Choice = 0;
 
         printf("Invlide Account ID!!!\n\n");
-        Label3:
+    Label3:
         printf("[1] to Try Again\n");
         printf("[2] to Exit\n\n");
 
         printf("Enter Your Choice: ");
         fflush(stdin);
-        scanf("%i",&Choice);
-        switch(Choice)
+        scanf("%i", &Choice);
+        switch (Choice)
         {
         case 1:
             Flag2++;
-            if(Flag2<3)
+            if (Flag2 < 3)
             {
                 goto Label2;
             }
             else
             {
-              return(0);
+                return (0);
             }
             break;
         case 2:
-            return(0);
+            return (0);
             break;
         default:
             printf("Invalid Choice!!\n\n");
             Flag3++;
-            if(Flag3<3)
+            if (Flag3 < 3)
             {
                 goto Label3;
             }
             else
             {
-                return(0);
+                return (0);
             }
         }
-
     }
-<<<<<<< patch-9
-
-    }
-=======
 }
->>>>>>> main
 
 /****************** user login ****************/
 extern u16 userCount;
