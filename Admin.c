@@ -1,5 +1,6 @@
 #include "HeaderFiles.h"
-char Admin_Entering[5] = "100k$$";
+char Admin_Entering[5] = "100";
+
 /****************** admin login ****************/
 U Admin_LogIn(char ID[])
 {
@@ -12,7 +13,7 @@ U Admin_LogIn(char ID[])
 Label:
     printf("Enter ID: ");
     scanf("%s", &New_ID);
-    Result = memcmp(New_ID, Admin_Entering, 5);
+    Result = memcmp(New_ID, Admin_Entering, 3);
     if (Result == 0)
     {
         adminSettings();
@@ -589,10 +590,159 @@ U loanInformation()
 /**************schedual pattern*****************/
 U scheduleLoans()
 {
+    accounts[0].Id = 111;
+    accounts[0].password = 111;
+    u32 A, B;                                          // A >> ID , B >> password
+    u8 IDFlag = 0, PASSFlag = 1, i, userIndex, choice; // for check on them
+    u64 z;
+
+    userIndex = search1(); // our function to search for index of IDs
+    if (userIndex >= 0)
+    {
+        IDFlag = 1;
+    }
+    printf("Please,Enter Your Password :");
+    scanf("%d", &B);
+    // if( B == accounts[userIndex].password)
+    //   PASSFlag =1;
+
+    if (IDFlag)
+    {
+        if (PASSFlag)
+        {
+
+            u32 col[4][4] = {{20.000, 5, 1, 1750}, {30.000, 5, 2, 1750}, {40.000, 6, 2, 1700}, {50.000, 7, 3, 25000}};
+            u16 rows;
+            u16 choice;
+
+            printf("\n\n\n");
+            printf("    %-16s  %-16s %-16s %-16s \n\n", "Amount 'K'", "Interest R", "year", "monthly");
+            for (rows = 0; rows < 4; rows++)
+            {
+                printf("%d.\t", rows);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    printf(" %-14d ", col[rows][i]);
+                }
+
+                printf("\n\n\n");
+            }
+
+            printf("Please ,choose your loan OR press '9' for customer support \n");
+            scanf("%d", &choice);
+            switch (choice)
+            {
+
+            case 0:
+
+                loans[userIndex].money_loan = 20000;
+                loans[userIndex].interest_rate = 5;
+                loans[userIndex].years = 1;
+                loans[userIndex].duration_months = 1750;
+                break;
+
+            case 1:
+
+                loans[userIndex].money_loan = 30000;
+                loans[userIndex].interest_rate = 5;
+                loans[userIndex].years = 1.5;
+                loans[userIndex].duration_months = 1750;
+                break;
+
+            case 2:
+
+                loans[userIndex].money_loan = 40000;
+                loans[userIndex].interest_rate = 7;
+                loans[userIndex].years = 2;
+                loans[userIndex].duration_months = 1700;
+                break;
+
+            case 3:
+
+                loans[userIndex].money_loan = 100000;
+                loans[userIndex].interest_rate = 10;
+                loans[userIndex].years = 4;
+                loans[userIndex].duration_months = 25000;
+                break;
+
+            case 9:
+
+                customerSupport();
+                break;
+            default:
+                printf("Invaild operation \n");
+                break;
+            }
+        }
+
+        else
+        {
+            printf("incorrect Password! \n");
+        }
+    }
+
+    else
+    {
+        printf("invaild ID !\n");
+    }
+
+    printf("\n****** Thanks for using our service ******\n");
+    printf("1.Goback\n2.Quit");
+    scanf("%d", &choice);
+    switch (choice)
+    {
+    case 1:
+        userSettings();
+        break;
+    case 2:
+        return;
+        break;
+    }
 }
 
 U supportSection()
 {
+    u8 i = 0;
+    u32 user_id;
+    printf("enter the user id \n");
+    scanf("%d", &user_id);
+    u8 idIndex = search1();
+
+    if (idIndex >= 0)
+    {
+        printf("%s\n", accounts[idIndex].complain);
+        u8 Case;
+        try : printf("\n/*//////////////////////*/\n")
+            ;
+        printf("1.exit:\n");
+        printf("2.back to the main menu list:\n");
+        printf("3.back to the admin setting:\n");
+
+        scanf("%d", &Case);
+        switch (Case)
+        {
+        case 1:
+            return;
+            break;
+        case 2:
+            systemFace();
+            break;
+        case 3:
+            adminSettings();
+            break;
+        default:
+            printf("you have enter the incorrect number \n");
+            goto try;
+            break;
+        }
+    }
+
+    else
+    {
+        printf("the id you have enterd not exist try again \n");
+        userSettings();
+    }
 }
 /**************system face*****************/
 void systemFace()
@@ -633,6 +783,6 @@ int search1()
             return i;
         }
     }
-    printf("Account not found.\n");
+
     return -1;
 }

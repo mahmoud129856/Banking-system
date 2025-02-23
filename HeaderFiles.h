@@ -12,6 +12,7 @@ typedef unsigned short int u16;
 typedef short int s16;
 typedef unsigned long long int u64;
 typedef void U;
+typedef float f32;
 #endif
 
 /**************** Typedef *****************/
@@ -43,6 +44,7 @@ typedef struct
     float interest_rate; //%5هنا هخزن الفايده وانت بتعمل القرض بتاعك وهعرضها علي المستخدم الي عاوز يعمل قرض وهنخليها
     u8 duration_months;  // هنخزن هنا المده الي لازم نسدد فيها القرض وهنخليها علي سنتين اقل حاجه
     u32 remaning_balanc;
+    f32 years;
 } loan;
 
 account accounts[MAX_USER]; // array of accounts

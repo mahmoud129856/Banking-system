@@ -1,5 +1,6 @@
 #include "HeaderFiles.h"
 
+u8 USerIndex; // to share index of user on all functios
 U User_Login(void)
 {
     int Account_ID;
@@ -14,6 +15,7 @@ U User_Login(void)
     printf("Welcome Back!!\n\n");
 Label2:
     Account_ID = search1();
+    USerIndex = search1();
     if (Account_ID < MAX_USER && Account_ID >= 0)
     {
         printf("valid Account!!\n\n");
@@ -168,107 +170,148 @@ void userSettings()
 /***************** add money *******************/
 void depositCash()
 {
-    u32 A, B;                                          // A >> ID , B >> password
-    u8 IDFlag = 0, PASSFlag = 0, i, userIndex, choice; // for check on them
+
+    u8 i, userIndex, choice; // for check on them
     u64 z;
-ID:
-    printf("Please,Enter Your ID: \n");
-    scanf("%d", &A);
-    printf("Please,Enter Your Password : \n");
-    scanf("%d", &B);
 
-    for (i = 0; i <= userCount; i++)
-    {
-        if (A == accounts[i].Id)
-        {
-            IDFlag = 1;
-            userIndex = i;
-        }
-    }
+    userIndex = userIndex;
 
-    if (B == accounts[userIndex].password)
+negative:
+    printf("\n\n$Please,Enter the amount$ \n");
+    scanf("%d", &z);
+    if (z > 0 && z <= 100000)
     {
-        PASSFlag = 1;
-    }
-
-    switch (IDFlag)
-    {
-    case 1:
-        switch (PASSFlag)
+        accounts[userIndex].balance += z;
+        printf("Deposit Successful\n");
+        printf("1.continue \n2.Quit\n");
+        scanf("%d", &choice);
+        switch (choice)
         {
         case 1:
-        negative:
-            printf("Please,Enter the amount ! \n");
-            scanf("%d", &z);
-            if (z > 0 && z <= 100000)
-            {
-                accounts[userIndex].balance += z;
-                printf("Deposit Successful\n");
-                printf("1.continue \n2.Quit\n");
-                scanf("%d", &choice);
-                switch (choice)
-                {
-                case 1:
-                    userSettings();
-                    break;
-                case 2:
-                    return;
-                }
-            }
-            else
-            {
-                printf("No money added ,the maximum amount '100.000' '100K' ,please try again! \n ");
-
-                printf("1.try again \n2.choose another service\n");
-                scanf("%d", &choice);
-                switch (choice)
-                {
-                case 1:
-                    goto negative;
-                    break;
-                case 2:
-                    userSettings();
-                }
-                break;
-            case 0:
-
-                printf("wrong password try again\n");
-
-                printf("1.try again \n2.choose another service\n");
-                scanf("%d", &choice);
-
-                switch (choice)
-                {
-                case 1:
-                    goto ID;
-                    break;
-                case 2:
-                    userSettings();
-                }
-
-                break;
-            }
+            userSettings();
+            break;
+        case 2:
+            return;
         }
-    case 0:
+    }
+    else
+    {
+        printf("No money added ,the maximum amount '100.000' '100K' ,please try again! \n ");
 
-        printf("wrong ID try again\n");
         printf("1.try again \n2.choose another service\n");
         scanf("%d", &choice);
         switch (choice)
         {
         case 1:
-            goto ID;
+            goto negative;
             break;
         case 2:
             userSettings();
         }
-        break;
     }
 }
-
 /***************** take off money *******************/
 void withdrawCash()
 {
+
+    int AccountID;
+    int Password;
+    int Balance = 0;
+    int Flag = 0;
+    int Flag1 = 0;
+    int Flag2 = 0;
+    int Flag3 = 0;
+    int Flag4 = 0;
+    int Choice = 0;
+
+    AccountID = search1();
+    if (AccountID < MAX_USER)
+    {
+    Label1:
+        printf("Enter Your Account Password: ");
+        scanf("%i", &Password);
+
+        if (Password = accounts[AccountID].password)
+        {
+            int Choice = 0;
+        Label3:
+            printf("Enter The Amount of Money you want: ");
+            scanf("%i", &Balance);
+            if (checkIfPossible(Balance) == 1)
+            {
+                printf("Are you Sure you want to to withdraw this Money[Enter (1) if you Sure]: ");
+                scanf("%i", &Choice);
+                if (Choice == 1)
+                {
+                    accounts[AccountID].balance -= Balance;
+                    printf("Successfull Operation!!\n");
+                    adminSettings();
+                }
+                else
+                {
+                    printf("Invalid Choice!!,Try Agian Later\n\n");
+                    adminSettings();
+                }
+            }
+            else
+            {
+                printf("Invalid, You don't have this money in you Account!!!\n");
+                Flag3++;
+                if (Flag3 < 3)
+                {
+                    goto Label3;
+                }
+                else
+                {
+                    adminSettings();
+                }
+            }
+        }
+        else
+        {
+            printf("Invalid Password!!\n");
+
+        Label:
+            printf("[1] to Try again\n");
+            printf("[2] to Admin Page\n");
+            printf("[3] to Exit\n\n");
+            printf("Enter your Choice: ");
+            fflush(stdin);
+            scanf("%i", &Choice);
+
+            switch (Choice)
+            {
+            case 1:
+                Flag++;
+                if (Flag < 3)
+                {
+                    goto Label1;
+                }
+                else
+                {
+                    adminSettings();
+                    return (0);
+                }
+                break;
+            case 2:
+                adminSettings();
+                break;
+            default:
+                printf("Invalid Choice!!\n");
+                Flag1++;
+                if (Flag1 < 3)
+                {
+                    goto Label;
+                }
+                else
+                {
+                    adminSettings();
+                    return (0);
+                }
+                break;
+            }
+        }
+    }
 }
 /***************** show the money *******************/
 void checkBalance()
