@@ -69,6 +69,7 @@ U adminSettings()
     u8 choice = 0;
     while (1)
     {
+    invalid:
         printf("1.create account\n");
         printf("2.update account\n");
         printf("3.delete account\n");
@@ -78,7 +79,12 @@ U adminSettings()
         printf("7.Go back\n");                      // main menu
         printf("8.Exit\n");
         printf("Enter your choice: ");
-        scanf("%d", &choice);
+        if (scanf("%d", &choice) != 1)
+        {
+            printf("Invalid Input!\n\n");
+            scanf("%*[^\n]");
+            goto invalid;
+        }
         switch (choice)
         {
         case 1:
@@ -119,13 +125,12 @@ U createAccount()
     {
         u32 id;
         u8 choice = 0, choice1, count, i = 0;
-
         fflush(stdin);
-
         printf("Enter customer name: ");
-        gets(accounts[userCount].Name);
+        fgets(accounts[userCount].Name, sizeof(accounts[userCount].Name), stdin);
 
     invalid:
+
         printf("\nEnter customer ID:");
         if (scanf("%lu", &id) != 1)
         {
@@ -417,7 +422,205 @@ U updateAccount()
         adminSettings();
     }
 }
-/**************delete*****************/
+
+u8 Namecheck(u8 index)
+{
+    u8 confirm;
+    u32 check[50];
+    printf("Enter new name: ");
+    gets(check);
+invalid1:
+    printf("(1). confirm\n");
+    printf("(2). back\n");
+    printf("\nEnter your choice: ");
+    if (scanf("%u", &confirm) != 1)
+    {
+        printf("Invalid Input!\n\n");
+        scanf("%*[^\n]");
+        goto invalid1;
+    }
+    switch (confirm)
+    {
+    case 1:
+    {
+        strcpy(accounts[index].Name, check);
+        printf("\n******updated successfully******\n\n");
+    }
+
+    case 2:
+    {
+        printf("\n***NO changes occurred***\n");
+        return 1;
+    }
+    }
+}
+
+Acccheck(u8 index)
+{
+
+    u8 confirm;
+    u32 check[50];
+    printf("Enter new account type: ");
+    gets(check);
+invalid:
+    printf("(1). confirm\n");
+    printf("(2). back\n");
+    printf("\nEnter your choice: ");
+    if (scanf("%u", &confirm) != 1)
+    {
+        printf("Invalid Input!\n\n");
+        scanf("%*[^\n]");
+        goto invalid;
+    }
+    switch (confirm)
+    {
+    case 1:
+        strcpy(accounts[index].acountType, check);
+        printf("\n******updated successfully******\n\n");
+        break;
+
+    case 2:
+        printf("\n***NO changes occurred***\n");
+        break;
+    }
+}
+
+Passcheck(u8 index)
+{
+
+    u8 confirm;
+    u64 check;
+invalid:
+    printf("Enter new password:");
+    scanf("%llu", &check);
+    printf("(1). confirm\n");
+    printf("(2). back\n");
+    printf("\nEnter your choice: ");
+    if (scanf("%u", &confirm) != 1)
+    {
+        printf("Invalid Input!\n\n");
+        scanf("%*[^\n]");
+        goto invalid;
+    }
+    switch (confirm)
+    {
+    case 1:
+        accounts[index].password = check;
+        printf("\n******updated successfully******\n\n");
+        break;
+
+    case 2:
+        printf("\n***NO changes occurred***\n");
+        break;
+    }
+}
+
+Balancecheck(u8 index)
+{
+
+    u8 confirm;
+    u64 check;
+invalid:
+    printf("Enter new balance:");
+    scanf("%llu", &check);
+    if (check >= 0)
+    {
+        printf("(1). confirm\n");
+        printf("(2). back\n");
+        printf("\nEnter your choice: ");
+        if (scanf("%u", &confirm) != 1)
+        {
+            printf("Invalid Input!\n\n");
+            scanf("%*[^\n]");
+            goto invalid;
+        }
+        switch (confirm)
+        {
+        case 1:
+            accounts[index].balance = check;
+            printf("\n******updated successfully******\n\n");
+            break;
+
+        case 2:
+            printf("\n***NO changes occurred***\n");
+            break;
+        }
+    }
+    else
+    {
+        printf("Are you kidding me!!");
+    }
+}
+
+Agecheck(u8 index)
+{
+
+    u8 confirm;
+    u32 check;
+invalid:
+    printf("Enter new age:");
+    scanf("%u", &check);
+    if (check >= 21)
+    {
+        printf("(1). confirm\n");
+        printf("(2). back\n");
+        printf("\nEnter your choice: ");
+        if (scanf("%d", &confirm) != 1)
+        {
+            printf("Invalid Input!\n\n");
+            scanf("%*[^\n]");
+            goto invalid;
+        }
+        switch (confirm)
+        {
+        case 1:
+            accounts[index].age = check;
+            printf("\n******updated successfully******\n\n");
+            break;
+
+        case 2:
+            printf("\n***NO changes occurred***\n");
+            break;
+        }
+    }
+    else
+    {
+        printf("Sorry! , this under legal age\n");
+    }
+}
+
+Addresscheck(u8 index)
+{
+
+    u8 confirm;
+    u32 check[50];
+invalid:
+    printf("Enter new Address: ");
+    gets(check);
+
+    printf("(1). confirm\n");
+    printf("(2). back\n");
+    printf("\nEnter your choice: ");
+    if (scanf("%d", &confirm) != 1)
+    {
+        printf("Invalid Input!\n\n");
+        scanf("%*[^\n]");
+        goto invalid;
+    }
+    switch (confirm)
+    {
+    case 1:
+        strcpy(accounts[index].address, check);
+        printf("\n******updated successfully******\n\n");
+
+        break;
+    case 2:
+        printf("\n***NO changes occurred***\n");
+        break;
+    }
+}
+
+//=============================delete===================================
 U deleteAccount()
 {
     int Account_ID;
@@ -641,14 +844,20 @@ U supportSection()
 /**************system face*****************/
 void systemFace()
 {
-    int choice = 0;
+    u8 choice = 0;
     while (1)
     {
+    invalid:
         printf("1.Admin Moode\n");
         printf("2.User Moode\n");
         printf("3.Quit\n");
         printf("Enter your choice:");
-        scanf("%d", &choice);
+        if (scanf("%d", &choice) != 1)
+        {
+            printf("Invalid Input!\n");
+            scanf("%*[^\n]");
+            goto invalid;
+        }
         switch (choice)
         {
         case 1:
@@ -664,7 +873,7 @@ void systemFace()
         }
     }
 }
-int search1(u64 x)
+s8 search1(u64 x)
 {
     u8 i;
     for (i = 0; i < userCount; i++)

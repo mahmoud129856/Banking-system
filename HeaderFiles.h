@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 #include <string.h>
 /**************** incluse section *****************/
 
@@ -25,7 +26,7 @@ typedef struct
 {
     u32 Id; /*Id of user*/ // انا عدلت id بدل ما كان array علشان اعرف اعمل check عليه في كل الfunction بسهوله
     u8 Name[100];          /*name of user*/
-    u8 age;                /*of user*/
+    u32 age;               /*of user*/
     u8 address[100];       /*address of user*/
     u8 acountType[100];    /*Savings/Checking*/
     u32 password;          /*of user*/
@@ -55,7 +56,16 @@ loan loans[MAX_LOANS];      // array of loans
 U adminSettings();
 U Admin_LogIn(char ID[]);
 U createAccount();
+//============================================ update and its functions =====================================================
 U updateAccount();
+U Idcheck(u8 index);
+u8 Namecheck(u8 index);
+U Addresscheck(u8 index);
+U Agecheck(u8 index);
+U Acccheck(u8 index);
+U Balancecheck(u8 index);
+U Passcheck(u8 index);
+//===========================================================================================================================
 U deleteAccount();
 U displayUserInfo();
 U loanInformation();
@@ -73,6 +83,6 @@ U cashTransfer();
 U applyForLoan();
 U trackingLoan();
 U customerSupport();
-int search1(seark);
+s8 search1(seark);
 int (*ptr)(U);
 /**************User functions  Prototype**********/
