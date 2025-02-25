@@ -1,17 +1,20 @@
 #include "HeaderFiles.h"
 char Admin_Entering[5] = "100";
-
+char motor[20] = {'11'};
+extern u8 counterr;
 /****************** admin login ****************/
 U Admin_LogIn(char ID[])
 {
+
     char New_ID[10];
     int Result = -2;
     int Flag = 1;
     int Flag1 = 1;
-
-    printf("Welcome Sir!!\n");
 Label:
-    printf("Enter ID: ");
+    system("cls");
+
+    delay("Welcome Sir!!\n", n);
+    delay("please enter your ID:", n);
     scanf("%s", &New_ID);
     Result = memcmp(New_ID, Admin_Entering, 3);
     if (Result == 0)
@@ -20,13 +23,17 @@ Label:
     }
     else
     {
+        system("cls");
         int Choice = 0;
-        printf("Invalid ID!!!\n");
+        delay("Invalid ID\n", n);
+        usleep(800000);
+        system("cls");
     Label1:
-        printf("[1] to Try again\n");
-        printf("[2] to Main Page\n");
-        printf("[3] to Exit\n\n");
-        printf("Enter your Choice: ");
+        delay("[1] to Try again\n", n);
+        delay("[2] to Main Page\n", n);
+        delay("[3] to Exit\n\n", n);
+        delay("Enter your Choice:", n);
+
         scanf("%i", &Choice);
 
         switch (Choice)
@@ -39,17 +46,22 @@ Label:
             }
             else
             {
-                return (0);
+                usleep(1000000);
+                systemFace();
             }
             break;
         case 2:
-            main();
+            systemFace();
             break;
         default:
-            printf("Invalid Choice!!\n");
+            system("cls");
+            delay("Invalid Choice!!\n", n);
+            usleep(800000);
             Flag1++;
             if (Flag1 < 3)
             {
+                system("cls");
+
                 goto Label1;
             }
             else
@@ -69,20 +81,23 @@ U adminSettings()
     u8 choice = 0;
     while (1)
     {
+
     invalid:
-        printf("1.create account\n");
-        printf("2.update account\n");
-        printf("3.delete account\n");
-        printf("4.Diplay info of User\n");          // all User inf or choose specific information
-        printf("5.loans information & decision\n"); // function will display all loans in a scedual and admin will choose one from them and confirm or refuse        // our available loans will be displayed in a sedual
-        printf("6.support section & decision\n");   // will show the problems and forward the problem for his section
-        printf("7.Go back\n");                      // main menu
-        printf("8.Exit\n");
-        printf("Enter your choice: ");
+        system("cls");
+        delay("1.create account\n", n);
+        delay("2.update account\n", n);
+        delay("3.delete account\n", n);
+        delay("4.Diplay info of User\n", n);
+        delay("5.loans information & decision\n", n);
+        delay("6.support section & decision\n", n);
+        delay("7.LogOut\n", n);
+        delay("8.Exit\n", n);
+        delay("Enter your choice: ", n);
         if (scanf("%d", &choice) != 1)
         {
             printf("Invalid Input!\n\n");
             scanf("%*[^\n]");
+            usleep(500000);
             goto invalid;
         }
         switch (choice)
@@ -113,7 +128,8 @@ U adminSettings()
             return 0;
             break;
         default:
-            printf("Invalid choice! Try again.\n");
+            delay("Invalid choice! Try again.", n);
+            usleep(800000);
         }
     }
 }
@@ -126,81 +142,148 @@ U createAccount()
         u32 id;
         u8 choice = 0, choice1, count, i = 0;
         fflush(stdin);
-        printf("Enter customer name: ");
-        fgets(accounts[userCount].Name, sizeof(accounts[userCount].Name), stdin);
+        system("cls");
+        delay("Enter customer name: ", n);
+        gets(accounts[userCount].Name);
+        delay("Name added successfully", n);
+        usleep(800000);
+        system("cls");
 
     invalid:
-
-        printf("\nEnter customer ID:");
+        system("cls");
+        delay("Enter customer id:", n);
         if (scanf("%lu", &id) != 1)
         {
-            printf("Invalid Input!");
+            delay("Invalid Input!\n", n);
+            usleep(800000);
             scanf("%*[^\n]");
             goto invalid;
         }
         if (search1(id) == -1)
         {
             accounts[userCount].Id = id;
+            delay("Id added successfully!!", n);
+            usleep(800000);
+            system("cls");
         }
         else
         {
-            printf("Invalid!!!Thers is another account With This ID\n");
-            printf("try this available ID: '%d'\n", &i);
+            delay("Invalid!!!Thers is another account With This ID\n", n);
+            delay("try this available ID:", n);
+            delay(motor, n);
+            printf("\n");
+            usleep(1000000);
+            motor[0] += 3;
             goto invalid;
         }
 
     invalid1:
 
-        printf("Enter customer age:");
+        delay("Enter customer age:", n);
         if (scanf("%i", &accounts[userCount].age) != 1)
         {
             printf("Invalid Input!");
+            usleep(800000);
             scanf("%*[^\n]");
+            system("cls");
             goto invalid1;
+        }
+        else
+        {
+            delay("customer age added successfully!!", n);
+            usleep(800000);
+            system("cls");
+        }
+
+    invalid15:
+
+        delay("Enter customer Phone number:", n);
+        if (scanf("%i", &accounts[userCount].phoneNumber) != 1)
+        {
+            printf("Invalid Input!");
+            usleep(800000);
+            scanf("%*[^\n]");
+            system("cls");
+            goto invalid15;
+        }
+        else
+        {
+            delay("customer Phone number added successfully!!", n);
+            usleep(800000);
+            system("cls");
+        }
+
+    invalid150:
+
+        delay("Enter customer password:", n);
+        fflush(stdin);
+        if (scanf("%i", &accounts[userCount].password) != 1)
+        {
+            printf("Invalid Input!");
+            usleep(800000);
+            scanf("%*[^\n]");
+            system("cls");
+            goto invalid150;
+        }
+        else
+        {
+            delay("customer password added successfully!!", n);
+            usleep(800000);
+            system("cls");
         }
 
         fflush(stdin);
-        printf("Enter customer address:");
+        delay("Enter customer address:", n);
         gets(accounts[userCount].address);
+        delay("Address added successfully!!\n", n);
+        usleep(800000);
+        system("cls");
 
-        printf("Enter account type:");
+        delay("Enter account type:", n);
         gets(accounts[userCount].acountType);
+        delay("account type added successfully!!", n);
+        usleep(800000);
+        system("cls");
 
     invalid10:
-        printf("Enter The initial balance:");
+        delay("Enter the initial balance:", n);
         if (scanf("%llu", &accounts[userCount].balance) != 1)
         {
             printf("Invalid Input\n!");
             scanf("%*[^\n]");
+            usleep(800000);
+            system("cls");
             goto invalid10;
         }
-
-    invalid11:
-        printf("Enter initial password:");
-        if (scanf("%i", &accounts[userCount].password) != 1)
+        else
         {
-            printf("Invalid Input\n!");
-            scanf("%*[^\n]");
-            goto invalid11;
+            delay("initial balance added successflly!!", n);
+            usleep(800000);
+            system("cls");
         }
 
-        printf("1. Save The Informatiom\n");
-        printf("2. To change \n");
-        printf("Enter your choice: ");
+        delay("1.Save information\n", n);
+        delay("2.discard \n", n);
+        delay("Enter your choice:", n);
         scanf("%i", &choice1);
         switch (choice1)
         {
         case 1:
-            printf("\n...You Add new account Successfully...\n");
+            system("cls");
+            delay("...You Add new account Successfully...", n);
+            usleep(800000);
+
             userCount++;
             break;
         case 2:
             createAccount();
             break;
         }
-        printf("\n(1) Admin option\n");
-        printf("(2) To Quit\n");
-        printf("Enter your choice: ");
+        system("cls");
+        delay("(1) Admin option\n", n);
+        delay("(2) To Quit\n", n);
+        delay("Enter your choice:", n);
+
         scanf("%i", &choice);
         switch (choice)
         {
@@ -214,11 +297,14 @@ U createAccount()
     else
     {
         int choice = 0;
-        printf("\nYou can't create new account... The System Is Full !!!\n");
+        system("cls");
+        delay("You can't create new account... The System Is Full !!!", n);
+        usleep(800000);
     Invalid:
-        printf("\n(1) to Admin option\n");
-        printf("(2) to Quit\n");
-        printf("Enter your choice: ");
+        system("cls");
+        delay("(1) to Admin option\n", n);
+        delay("(2) to Quit\n", n);
+        delay("Enter your choice:", n);
         scanf("%i", &choice);
         switch (choice)
         {
@@ -229,7 +315,9 @@ U createAccount()
             return (0);
             break;
         default:
-            printf("Invalid Input!");
+            delay("Invalid Input!", n);
+            usleep(800000);
+
             goto invalid;
         }
     }
@@ -243,25 +331,29 @@ U updateAccount()
     u8 flag = 0, i;
     u8 choice, confirm;
     u64 try;
-
-    printf("Please enter your ID: ");
+    system("cls");
+    delay("Please enter account ID:", n);
     scanf("%lu", &id);
     for (i = 0; i < userCount; i++)
     {
         if (accounts[i].Id == id)
         {
+
             flag = 1;
         invalid:
         all:
-            printf("\n1.update name\n");
-            printf("2. update age\n");
-            printf("3. update adderess\n");
-            printf("4. update account Type\n");
-            printf("5. update password\n");
-            printf("6. update balance\n");
-            printf("7. update all\n");
-            printf("8. back\n");
-            printf("\n\nEnter your choice: ");
+
+            system("cls");
+            delay("1.update name\n", n);
+            delay("2. update age\n", n);
+            delay("3. update address\n", n);
+            delay("4. update account Type\n", n);
+            delay("5. update Phone number\n", n);
+            delay("6. update password\n", n);
+            delay("7. update balance\n", n);
+            delay("8. update all\n", n);
+            delay("9. back\n", n);
+            delay("\n\nEnter your choice: ", n);
 
             scanf("%d", &choice);
 
@@ -269,354 +361,239 @@ U updateAccount()
             switch (choice)
             {
             case 1:
-
-                printf("Enter new name: ");
+                system("cls");
+                delay("Enter new name: ", n);
 
                 gets(check);
-                printf("(1). confirm\n");
-                printf("(2). back\n");
-                printf("\nEnter your choice: ");
+                delay("(1). confirm\n", n);
+                delay("(2). back\n", n);
+                delay("\nEnter your choice: ", n);
                 scanf("%d", &confirm);
                 switch (confirm)
                 {
                 case 1:
+                    system("cls");
                     strcpy(accounts[i].Name, check);
-                    printf("\n******updated successfully******\n\n");
+                    delay(".....updated successfully.....", n);
+                    usleep(800000);
                     goto all;
 
                 case 2:
-                    printf("\n***NO changes occurred***\n");
+                    system("cls");
+                    delay("...NO changes occurred...", n);
+                    usleep(800000);
                     goto all;
                 }
 
             case 2:
-                printf("Enter new age: ");
+                system("cls");
+                delay("Enter new age: ", n);
                 scanf("%d", &try);
-                printf("(1). confirm\n");
-                printf("(2). back\n");
-                printf("\nEnter your choice: ");
+                delay("(1). confirm\n", n);
+                delay("(2). back\n", n);
+                delay("\nEnter your choice: ", n);
                 scanf("%d", &confirm);
                 switch (confirm)
                 {
                 case 1:
                     accounts[i].age = try;
-                    printf("\n******updated successfully******\n\n");
+                    system("cls");
+                    delay(".....updated successfully.....", n);
+                    usleep(800000);
                     goto all;
 
                 case 2:
-                    printf("\n***NO changes occurred***\n");
+                    system("cls");
+                    printf("...NO changes occurred...", n);
+                    usleep(800000);
                     goto all;
                 }
 
             case 3:
-                printf("Enter new adderess: ");
+                system("cls");
+                delay("Enter new address: ", n);
                 gets(check);
-                printf("(1). confirm\n");
-                printf("(2). back\n");
-                printf("\nEnter your choice: ");
+                delay("(1). confirm\n", n);
+                delay("(2). back\n", n);
+                delay("\nEnter your choice: ", n);
                 scanf("%d", &confirm);
                 switch (confirm)
                 {
                 case 1:
                     strcpy(accounts[i].address, check);
-                    printf("\n******updated successfully******\n\n");
+                    system("cls");
+                    printf(".....updated successfully.....", n);
+                    usleep(800000);
                     goto all;
 
                 case 2:
-                    printf("\n***NO changes occurred***\n");
+                    system("cls");
+                    delay("...NO changes occurred...", n);
+                    usleep(800000);
                     goto all;
                 }
 
             case 4:
-                printf("Enter new account type ");
+                system("cls");
+                delay("Enter new account type ", n);
                 gets(check);
-                printf("(1). confirm\n");
-                printf("(2). back\n");
-                printf("\nEnter your choice: ");
+                delay("(1). confirm\n", n);
+                delay("(2). back\n", n);
+                delay("\nEnter your choice: ", n);
                 scanf("%d", &confirm);
                 switch (confirm)
                 {
                 case 1:
                     strcpy(accounts[i].acountType, check);
-                    printf("\n******updated successfully******\n\n");
+                    system("cls");
+                    delay("...updated successfully...", n);
+                    usleep(800000);
                     goto all;
 
                 case 2:
-                    printf("\n***NO changes occurred***\n");
+                    system("cls");
+                    delay("...NO changes occurred...", n);
+                    usleep(800000);
                     goto all;
                 }
 
             case 5:
-                printf("Enter new passowrd: ");
+                system("cls");
+                delay("Enter new Phone number: ", n);
                 scanf("%d", &try);
-                printf("(1). confirm\n");
-                printf("(2). back\n");
-                printf("\nEnter your choice: ");
+                delay("(1). confirm\n", n);
+                delay("(2). back\n", n);
+                delay("\nEnter your choice: ", n);
+                scanf("%d", &confirm);
+                switch (confirm)
+                {
+                case 1:
+                    accounts[i].phoneNumber = try;
+                    system("cls");
+                    delay(".....updated successfully.....", n);
+                    usleep(800000);
+                    goto all;
+
+                case 2:
+                    system("cls");
+                    delay("...NO changes occurred...", n);
+                    usleep(800000);
+                    goto all;
+                }
+
+            case 6:
+                system("cls");
+                delay("Enter new password: ", n);
+                scanf("%d", &try);
+                delay("(1). confirm\n", n);
+                delay("(2). back\n", n);
+                delay("\nEnter your choice: ", n);
                 scanf("%d", &confirm);
                 switch (confirm)
                 {
                 case 1:
                     accounts[i].password = try;
-                    printf("\n******updated successfully******\n\n");
+                    system("cls");
+                    delay(".....updated successfully.....", n);
+                    usleep(800000);
                     goto all;
 
                 case 2:
-                    printf("\n***NO changes occurred***\n");
-                    goto all;
-                }
-
-            case 6:
-                printf("Enter new balance: ");
-                scanf("%llu", &try);
-                printf("(1). confirm\n");
-                printf("(2). back\n");
-                printf("\nEnter your choice: ");
-                scanf("%d", &confirm);
-                switch (confirm)
-                {
-                case 1:
-                    accounts[i].balance = try;
-                    printf("\n******updated successfully******\n\n");
-                    goto all;
-
-                case 2:
-                    printf("\n***NO changes occurred***\n");
+                    system("cls");
+                    delay("...NO changes occurred...", n);
+                    usleep(800000);
                     goto all;
                 }
 
             case 7:
-                printf("\n\nEnter new name: ");
-                gets(accounts[i].Name);
+                delay("Enter new balance: ", n);
+                scanf("%llu", &try);
+                delay("(1). confirm\n", 20);
+                delay("(2). back\n", 20);
+                delay("\nEnter your choice: ", n);
+                scanf("%d", &confirm);
+                switch (confirm)
+                {
+                case 1:
 
-                printf("\n\nEnter new age: ");
-                scanf("%d", &accounts[i].age);
-                fflush(stdin);
-                printf("\n\nEnter new adderess: ");
-                gets(accounts[i].address);
+                    accounts[i].balance = try;
+                    system("cls");
+                    delay(".....updated successfully.....", n);
+                    usleep(800000);
+                    goto all;
 
-                printf("\n\nEnter new account type: ");
-                gets(accounts[i].acountType);
-
-                printf("\n\nEnter new password: ");
-                scanf("%d", &accounts[i].password);
-
-                printf("\n\nEnter new balance: ");
-                scanf("%llu", &accounts[i].balance);
-
-                printf("\n\n***Flight schedule updated successfully!***\n\n");
-                goto all;
+                case 2:
+                    system("cls");
+                    delay("...NO changes occurred...", n);
+                    usleep(800000);
+                    goto all;
+                }
 
             case 8:
+                system("cls");
+                delay("Enter new name: ", n);
+                gets(accounts[i].Name);
+                delay("Updated successfully!!", n);
+                usleep(800000);
+                system("cls");
+
+                delay("Enter new age: ", n);
+                scanf("%d", &accounts[i].age);
+                delay("Updated successfully!!", n);
+                usleep(800000);
+                system("cls");
+
+                fflush(stdin);
+                delay("Enter new adderess: ", n);
+                gets(accounts[i].address);
+                delay("Updated successfully!!", n);
+                usleep(800000);
+                system("cls");
+
+                delay("Enter new account type: ", n);
+                gets(accounts[i].acountType);
+                delay("Updated successfully!!", n);
+                usleep(800000);
+                system("cls");
+
+                delay("Enter new Phone number: ", n);
+                scanf("%d", &accounts[i].phoneNumber);
+                delay("Updated successfully!!", n);
+                usleep(800000);
+                system("cls");
+
+                delay("Enter new password: ", n);
+                scanf("%d", &accounts[i].password);
+                delay("Updated successfully!!", n);
+                usleep(800000);
+                system("cls");
+
+                delay("Enter new balance: ", n);
+                scanf("%llu", &accounts[i].balance);
+                delay("Updated successfully!!", n);
+                usleep(800000);
+                system("cls");
+
+                delay(".....account updated successfully.....", n);
+                goto all;
+
+            case 9:
                 adminSettings();
                 break;
 
             default:
-                printf("Invalid Input!\n");
+                system("cls");
+                delay("Invalid Input!\n", n);
+                usleep(800000);
                 goto all;
             }
         }
     }
     if (!flag)
     {
-        printf("\naccount not exist in our system!\n\n");
+        delay("account not exist in our system!", n);
+        usleep(800000);
         adminSettings();
-    }
-}
-
-u8 Namecheck(u8 index)
-{
-    u8 confirm;
-    u32 check[50];
-    printf("Enter new name: ");
-    gets(check);
-invalid1:
-    printf("(1). confirm\n");
-    printf("(2). back\n");
-    printf("\nEnter your choice: ");
-    if (scanf("%u", &confirm) != 1)
-    {
-        printf("Invalid Input!\n\n");
-        scanf("%*[^\n]");
-        goto invalid1;
-    }
-    switch (confirm)
-    {
-    case 1:
-    {
-        strcpy(accounts[index].Name, check);
-        printf("\n******updated successfully******\n\n");
-    }
-
-    case 2:
-    {
-        printf("\n***NO changes occurred***\n");
-        return 1;
-    }
-    }
-}
-
-Acccheck(u8 index)
-{
-
-    u8 confirm;
-    u32 check[50];
-    printf("Enter new account type: ");
-    gets(check);
-invalid:
-    printf("(1). confirm\n");
-    printf("(2). back\n");
-    printf("\nEnter your choice: ");
-    if (scanf("%u", &confirm) != 1)
-    {
-        printf("Invalid Input!\n\n");
-        scanf("%*[^\n]");
-        goto invalid;
-    }
-    switch (confirm)
-    {
-    case 1:
-        strcpy(accounts[index].acountType, check);
-        printf("\n******updated successfully******\n\n");
-        break;
-
-    case 2:
-        printf("\n***NO changes occurred***\n");
-        break;
-    }
-}
-
-Passcheck(u8 index)
-{
-
-    u8 confirm;
-    u64 check;
-invalid:
-    printf("Enter new password:");
-    scanf("%llu", &check);
-    printf("(1). confirm\n");
-    printf("(2). back\n");
-    printf("\nEnter your choice: ");
-    if (scanf("%u", &confirm) != 1)
-    {
-        printf("Invalid Input!\n\n");
-        scanf("%*[^\n]");
-        goto invalid;
-    }
-    switch (confirm)
-    {
-    case 1:
-        accounts[index].password = check;
-        printf("\n******updated successfully******\n\n");
-        break;
-
-    case 2:
-        printf("\n***NO changes occurred***\n");
-        break;
-    }
-}
-
-Balancecheck(u8 index)
-{
-
-    u8 confirm;
-    u64 check;
-invalid:
-    printf("Enter new balance:");
-    scanf("%llu", &check);
-    if (check >= 0)
-    {
-        printf("(1). confirm\n");
-        printf("(2). back\n");
-        printf("\nEnter your choice: ");
-        if (scanf("%u", &confirm) != 1)
-        {
-            printf("Invalid Input!\n\n");
-            scanf("%*[^\n]");
-            goto invalid;
-        }
-        switch (confirm)
-        {
-        case 1:
-            accounts[index].balance = check;
-            printf("\n******updated successfully******\n\n");
-            break;
-
-        case 2:
-            printf("\n***NO changes occurred***\n");
-            break;
-        }
-    }
-    else
-    {
-        printf("Are you kidding me!!");
-    }
-}
-
-Agecheck(u8 index)
-{
-
-    u8 confirm;
-    u32 check;
-invalid:
-    printf("Enter new age:");
-    scanf("%u", &check);
-    if (check >= 21)
-    {
-        printf("(1). confirm\n");
-        printf("(2). back\n");
-        printf("\nEnter your choice: ");
-        if (scanf("%d", &confirm) != 1)
-        {
-            printf("Invalid Input!\n\n");
-            scanf("%*[^\n]");
-            goto invalid;
-        }
-        switch (confirm)
-        {
-        case 1:
-            accounts[index].age = check;
-            printf("\n******updated successfully******\n\n");
-            break;
-
-        case 2:
-            printf("\n***NO changes occurred***\n");
-            break;
-        }
-    }
-    else
-    {
-        printf("Sorry! , this under legal age\n");
-    }
-}
-
-Addresscheck(u8 index)
-{
-
-    u8 confirm;
-    u32 check[50];
-invalid:
-    printf("Enter new Address: ");
-    gets(check);
-
-    printf("(1). confirm\n");
-    printf("(2). back\n");
-    printf("\nEnter your choice: ");
-    if (scanf("%d", &confirm) != 1)
-    {
-        printf("Invalid Input!\n\n");
-        scanf("%*[^\n]");
-        goto invalid;
-    }
-    switch (confirm)
-    {
-    case 1:
-        strcpy(accounts[index].address, check);
-        printf("\n******updated successfully******\n\n");
-
-        break;
-    case 2:
-        printf("\n***NO changes occurred***\n");
-        break;
     }
 }
 
@@ -637,21 +614,26 @@ U deleteAccount()
     int all;
 
 Label2:
-    printf("Enter account Id:");
+    system("cls");
+    delay("Enter account Id:", n);
     scanf("%d", &all);
     Account_ID = search1(all);
     if (Account_ID < MAX_USER && Account_ID >= 0)
     {
-        printf("valid Account!!\n\n");
+        delay("valid Account ID!!", n);
+        usleep(800000);
     Label1:
-        printf("Enter Your Account Password: ");
+        system("cls");
+        delay("Enter Your Account Password: ", n);
         fflush(stdin);
         scanf("%i", &Password);
         if (Password == accounts[Account_ID].password)
         {
 
-            printf("Valid Password!!\n\n");
-            printf("Are you sure You want to Delet Your Account?\nEnter [1] to Delete:");
+            delay("Valid Password!!", n);
+            delay("Account name:", n);
+            delay(accounts[Account_ID].Name, n);
+            delay("\nAre you sure You want to Delete this Account?\nEnter [1] to Delete:", n);
             scanf("%i", &Choice1);
 
             switch (Choice1)
@@ -661,18 +643,23 @@ Label2:
                 accounts[Account_ID].balance = 0;
                 accounts[Account_ID].password = 0;
                 accounts[Account_ID].Id = 0;
+                accounts[Account_ID].phoneNumber = 0;
                 memset(accounts[Account_ID].acountType, '0', 100);
                 memset(accounts[Account_ID].address, '0', 100);
                 memset(accounts[Account_ID].Name, '0', 100);
                 memset(accounts[Account_ID].complain, '0', 500);
                 userCount--;
-                printf("\nAccount Deleted Successfullt!\n\n");
+                system("cls");
+                delay("Account Deleted Successfully!", n);
+                usleep(800000);
                 adminSettings();
                 break;
 
             default:
             {
-                printf("Invalid Choise, Try Again Later!!\n");
+                system("cls");
+                delay("Invalid Choise, Try Again Later!!", n);
+                usleep(800000);
                 adminSettings();
                 break;
             }
@@ -680,13 +667,16 @@ Label2:
         }
         else
         {
-            printf("Invalid Password!!\n");
+
+            delay("Invalid Password!!", n);
+            usleep(800000);
 
         Label:
-            printf("[1] to Try again\n");
-            printf("[2] to Admin Page\n");
-            printf("[3] to Exit\n\n");
-            printf("Enter your Choice: ");
+            system("cls");
+            delay("[1] to Try again\n", n);
+            delay("[2] to Admin Page\n", n);
+            delay("[3] to Exit\n", n);
+            delay("Enter your Choice: ", n);
             fflush(stdin);
             scanf("%i", &Choice);
 
@@ -700,15 +690,16 @@ Label2:
                 }
                 else
                 {
+                    system("cls");
+                    usleep(1000000);
                     adminSettings();
-                    return (0);
                 }
                 break;
             case 2:
                 adminSettings();
                 break;
             default:
-                printf("Invalid Choice!!\n");
+                delay("Invalid Choice!!", n);
                 Flag1++;
                 if (Flag1 < 3)
                 {
@@ -716,8 +707,9 @@ Label2:
                 }
                 else
                 {
+                    system("cls");
+                    usleep(1000000);
                     adminSettings();
-                    return (0);
                 }
                 break;
             }
@@ -727,13 +719,14 @@ Label2:
     {
         int Choice = 0;
 
-        printf("Invlide Account ID!!!\n\n");
+        delay("Invlide Account ID!!!", n);
     Label3:
-        printf("[1] to Try Again\n");
-        printf("[2] to Admin Page\n");
-        printf("[3] to Exit\n\n");
+        system("cls");
+        delay("[1] to Try Again\n", n);
+        delay("[2] to Admin Page\n", n);
+        delay("[3] to Exit\n", n);
 
-        printf("Enter Your Choice: ");
+        delay("Enter Your Choice: ", n);
         fflush(stdin);
         scanf("%i", &Choice);
         switch (Choice)
@@ -746,19 +739,20 @@ Label2:
             }
             else
             {
+                system("cls");
+                usleep(1000000);
                 adminSettings();
-                return (0);
             }
             break;
         case 2:
             adminSettings();
-            return (0);
+
             break;
         case 3:
             exit(1);
             break;
         default:
-            printf("Invalid Choice!!\n\n");
+            delay("Invalid Choice!!", n);
             Flag3++;
             if (Flag3 < 3)
             {
@@ -766,8 +760,9 @@ Label2:
             }
             else
             {
+                system("cls");
+                usleep(1000000);
                 adminSettings();
-                return (0);
             }
         }
     }
@@ -776,21 +771,47 @@ Label2:
 /**************display info*****************/
 U displayUserInfo()
 {
-    u8 IdIndex;
+    int IdIndex, see;
     int all;
-    printf("Enter account id:");
+al:
+    system("cls");
+    delay("Enter account id:", n);
     scanf("%d", &all);
     IdIndex = search1(all);
-    printf("\n Account Information:\n");
-    printf("===============================\n");
-    printf(" Account Holder : %s\n", accounts[IdIndex].Name);
-    printf(" Current Balance: %d EGP\n", accounts[IdIndex].balance);
-    printf(" Account type : %s\n", accounts[IdIndex].acountType);
-    printf(" Current age: %d \n", accounts[IdIndex].age);
-    printf(" Current adderss: %s \n", accounts[IdIndex].address);
+    if (IdIndex >= 0)
+    {
+        system("cls");
+        printf("\n=====================================================================================================================\n");
+        printf("%-20s %-15s %-15s %-15s %-15s %-20s", "Holder", "type", "Balance", "age", "address", "Phone number");
+        printf("\n=====================================================================================================================\n");
+        printf("%-20s %-15s %-15llu %-15lu %-15s %-20llu", accounts[IdIndex].Name, accounts[IdIndex].acountType, accounts[IdIndex].balance, accounts[IdIndex].age, accounts[IdIndex].address, accounts[IdIndex].phoneNumber);
+        printf("\n=====================================================================================================================\n");
+    again:
+        delay("1.search for another account \n2.Admin options", n);
+        delay("\nEnter your choice:", n);
+        scanf("%d", &see);
+        switch (see)
+        {
+        case 1:
 
-    // printf(" Created Date   : %s\n", account.created_date);
-    printf("===============================\n");
+            goto al;
+            break;
+        case 2:
+            adminSettings();
+            break;
+        default:
+            delay("Invalid input", n);
+            system("cls");
+            goto again;
+        }
+    }
+    else
+    {
+        system("cls");
+        delay("Account not found", n);
+        usleep(800000);
+        adminSettings();
+    }
 }
 /**************loan informayion*****************/
 U loanInformation()
@@ -800,61 +821,149 @@ U loanInformation()
 
 U supportSection()
 {
-    u8 i = 0;
-    u32 user_id;
-    printf("enter the user id \n");
-    scanf("%d", &user_id);
-    u8 idIndex = search1(user_id);
+    u8 i = 0, cass, choice;
+    u16 counter = sizeof(complainName) / sizeof(complainName[0]);
 
-    if (idIndex >= 0)
+all:
+    system("cls");
+
+    printf("====================\n");
+    printf("%-5s %-25s", "No", "Name");
+    printf("\n====================\n");
+    for (i = 0; i < counterr; i++)
     {
-        printf("%s\n", accounts[idIndex].complain);
-        u8 Case;
-        try : printf("\n/*//////////////////////*/\n")
-            ;
-        printf("1.exit:\n");
-        printf("2.back to the main menu list:\n");
-        printf("3.back to the admin setting:\n");
+        printf("%-5d %-25s\n", i + 1, accounts[complainName[i]].Name);
+    }
+    printf("====================\n");
+    delay("choose customer:", n);
+    scanf("%d", &cass);
+    switch (cass)
+    {
+    case 1:
+    {
 
-        scanf("%d", &Case);
-        switch (Case)
+        system("cls");
+        delay(accounts[complainName[0]].complain, n);
+        printf("\n");
+        delay("1.Call him \n2.Go back", n);
+        delay("\nEnter your choice:", n);
+        scanf("%d", &choice);
+        switch (choice)
         {
         case 1:
-            return;
+            system("cls");
+            printf("%llu", accounts[complainName[0]].phoneNumber);
+            usleep(1000000);
             break;
         case 2:
-            systemFace();
-            break;
-        case 3:
             adminSettings();
             break;
-        default:
-            printf("you have enter the incorrect number \n");
-            goto try;
-            break;
         }
+        break;
+    }
+    case 2:
+    {
+
+        system("cls");
+        delay(accounts[complainName[1]].complain, 20);
+        printf("\n");
+        delay("1.Call him \n2.Go back", n);
+        delay("\nEnter your choice:", n);
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            system("cls");
+            printf("%llu", accounts[complainName[1]].phoneNumber);
+            usleep(1000000);
+            break;
+        case 2:
+            adminSettings();
+        }
+        break;
+    }
+    case 3:
+    {
+
+        system("cls");
+        delay(accounts[complainName[2]].complain, 20);
+        printf("\n");
+        delay("1.Call customer \n2.Go back", n);
+        delay("\nEnter your choice:", n);
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            system("cls");
+            printf("%llu", accounts[complainName[2]].phoneNumber);
+            usleep(1000000);
+            break;
+        case 2:
+            adminSettings();
+        }
+        break;
     }
 
-    else
+    case 4:
     {
-        printf("the id you have enterd not exist try again \n");
-        userSettings();
+
+        system("cls");
+        delay(accounts[complainName[3]].complain, 20);
+        printf("\n");
+        delay("1.Call him \n2.Go back", n);
+        delay("\nEnter your choice:", n);
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            system("cls");
+            printf("%llu", accounts[complainName[3]].phoneNumber);
+            usleep(1000000);
+            break;
+        case 2:
+            adminSettings();
+        }
+        break;
+    }
+    }
+al:
+    system("cls");
+    delay("1.see another complain \n2.Go bak", n);
+    delay("\nEnter your choice:", n);
+    scanf("%d", &choice);
+    switch (choice)
+    {
+    case 1:
+        goto all;
+        break;
+    case 2:
+        adminSettings();
+        break;
+    default:
+        delay("Invalid input", n);
+        usleep(800000);
+        goto al;
     }
 }
+
 /**************system face*****************/
 void systemFace()
 {
     u8 choice = 0;
     while (1)
     {
+        system("cls");
+
     invalid:
-        printf("1.Admin Moode\n");
-        printf("2.User Moode\n");
-        printf("3.Quit\n");
-        printf("Enter your choice:");
+        delay("1.Admin Moode\n", n);
+        delay("2.User Moode\n", n);
+        delay("3.Quit\n", n);
+        delay("Enter your choice:", n);
+
         if (scanf("%d", &choice) != 1)
         {
-            printf("Invalid Input!\n");
+            delay("Invalid input", n);
+
             scanf("%*[^\n]");
             goto invalid;
         }
@@ -869,7 +978,8 @@ void systemFace()
         case 3:
             return 0;
         default:
-            printf("Invalid choice!\n");
+            delay("Invalid choice!", n);
+            usleep(800000);
         }
     }
 }
@@ -885,4 +995,14 @@ s8 search1(u64 x)
     }
 
     return -1;
+}
+void delay(const char *text, int Delay)
+{
+    while (*text)
+    {
+        printf("%c", *text);
+        fflush(stdout);
+        usleep(Delay * 1000);
+        text++;
+    }
 }

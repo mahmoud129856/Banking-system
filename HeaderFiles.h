@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 /**************** incluse section *****************/
 
 #ifndef TYPEDEF_H_
@@ -21,6 +23,7 @@ typedef double f64;
 #define MAX_USER 100
 #define MAX_LOANS 100
 #define MAX_AMOUNT_PER_TRANSACTION 100000
+#define n 10 // time of writing
 /*************** macros. section *************/
 typedef struct
 {
@@ -32,6 +35,7 @@ typedef struct
     u32 password;          /*of user*/
     u64 balance;
     u32 complain[500];
+    u64 phoneNumber;
 
 } account;
 
@@ -51,6 +55,7 @@ typedef struct
 
 account accounts[MAX_USER]; // array of accounts
 loan loans[MAX_LOANS];      // array of loans
+u16 complainName[MAX_USER];
 
 /**************Global variables***************/
 U adminSettings();
@@ -85,4 +90,5 @@ U trackingLoan();
 U customerSupport();
 s8 search1(seark);
 int (*ptr)(U);
+U delay(const char *text, int Delay);
 /**************User functions  Prototype**********/

@@ -1,5 +1,5 @@
 #include "HeaderFiles.h"
-
+u8 counterr = 0;
 u8 USerIndex; // to share index of user on all functios
 U User_Login(void)
 {
@@ -13,34 +13,40 @@ U User_Login(void)
     int Choice = 0;
     int seark;
 
-    printf("Welcome Back!!\n\n");
+    system("cls");
+    delay("Welcome Back!!\n", n);
 Label2:
-    printf("Enter your ID:");
+    delay("Enter your ID:", n);
     scanf("%d", &seark);
 
     Account_ID = search1(seark);
     USerIndex = Account_ID;
     if (Account_ID < MAX_USER && Account_ID >= 0)
     {
-        printf("valid Account!!\n\n");
+        delay("valid ID!!", n);
+        usleep(800000);
     Label1:
-        printf("Enter Your Account Password: ");
+        system("cls");
+        delay("Enter Your Account Password: ", n);
 
         scanf("%i", &Password);
         if (Password == accounts[Account_ID].password)
 
         {
-            printf("Valid Password!!\n\n");
+            delay("Valid Password!!", n);
+            usleep(800000);
             userSettings();
         }
         else
         {
-            printf("Invalid Password!!\n");
+            delay("Invalid Password!!", n);
+            usleep(800000);
 
         Label:
-            printf("[1] to Try again\n");
-            printf("[2] to Exit\n\n");
-            printf("Enter your Choice: ");
+            system("cls");
+            delay("[1] to Try again\n", n);
+            delay("[2] to Exit\n", n);
+            delay("Enter your Choice: ", n);
             fflush(stdin);
             scanf("%i", &Choice);
 
@@ -54,14 +60,16 @@ Label2:
                 }
                 else
                 {
-                    ptr();
+                    usleep(1000000);
+                    systemFace();
                 }
                 break;
             case 2:
                 return (0);
                 break;
             default:
-                printf("Invalid Choice!!\n");
+                delay("Invalid Choice!!\n", n);
+                usleep(800000);
                 Flag1++;
                 if (Flag1 < 3)
                 {
@@ -69,7 +77,8 @@ Label2:
                 }
                 else
                 {
-                    return (0);
+                    usleep(1000000);
+                    systemFace();
                 }
                 break;
             }
@@ -79,12 +88,14 @@ Label2:
     {
         int Choice = 0;
 
-        printf("Invlide Account ID!!!\n\n");
+        delay("Invlide Account ID!!!", n);
+        usleep(800000);
     Label3:
-        printf("[1] to Try Again\n");
-        printf("[2] to Exit\n\n");
+        system("cls");
+        delay("[1] to Try Again\n", n);
+        delay("[2] to Exit\n\n", n);
 
-        printf("Enter Your Choice: ");
+        delay("Enter Your Choice: ", n);
         fflush(stdin);
         scanf("%i", &Choice);
         switch (Choice)
@@ -97,14 +108,16 @@ Label2:
             }
             else
             {
-                return (0);
+                usleep(1000000);
+                systemFace();
             }
             break;
         case 2:
             return (0);
             break;
         default:
-            printf("Invalid Choice!!\n\n");
+            delay("Invalid Choice!!", n);
+            usleep(800000);
             Flag3++;
             if (Flag3 < 3)
             {
@@ -112,7 +125,8 @@ Label2:
             }
             else
             {
-                return (0);
+                usleep(1000000);
+                systemFace();
             }
         }
     }
@@ -127,16 +141,17 @@ void userSettings()
     u8 choice;
     while (1)
     {
-        printf("1.deposits cash\n");
-        printf("2.withdrawals cash\n"); // اتاكد ان الرقم اللي هيتسحب ده موجود اصلا ومش مخالف للحد الاقصي للسحب
-        printf("3.check balance\n");
-        printf("4.cash transfer\n");    // اتأكد من ان المبلغ المبعوت موجود اصلا في الحساب وان المبلغ مسموح يتبعت
-        printf("5.apply for loan\n");   // هيظهر جدول ل كل القروض الموجوده في النظالم وهو يختار منهم اللي ىناسبه
-        printf("6.tracking loan\n");    // بيشوف الفلوس اللي اتدفعت من القرض والفلوس المتبقه عليه للبنك
-        printf("7.Customer Support\n"); // مش بيعمل اكتر من انه بيكتب مسدج ونخزنها منه
-        printf("8.go back\n");
-        printf("9.Exit\n");
-        printf("\nEnter your choice: ");
+        system("cls");
+        delay("1.deposits cash\n", n);
+        delay("2.withdrawals cash\n", n); // اتاكد ان الرقم اللي هيتسحب ده موجود اصلا ومش مخالف للحد الاقصي للسحب
+        delay("3.check balance\n", n);
+        delay("4.cash transfer\n", n);    // اتأكد من ان المبلغ المبعوت موجود اصلا في الحساب وان المبلغ مسموح يتبعت
+        delay("5.apply for loan\n", n);   // هيظهر جدول ل كل القروض الموجوده في النظالم وهو يختار منهم اللي ىناسبه
+        delay("6.tracking loan\n", n);    // بيشوف الفلوس اللي اتدفعت من القرض والفلوس المتبقه عليه للبنك
+        delay("7.Customer Support\n", n); // مش بيعمل اكتر من انه بيكتب مسدج ونخزنها منه
+        delay("8.go back\n", n);
+        delay("9.Exit\n", n);
+        delay("\nEnter your choice: ", n);
         scanf("%d", &choice);
         switch (choice)
         {
@@ -167,7 +182,8 @@ void userSettings()
         case 9:
             return 0;
         default:
-            printf("Invalid choice\n");
+            delay("Invalid choice", n);
+            usleep(800000);
         }
     }
 }
@@ -179,13 +195,17 @@ void depositCash()
     u64 z;
 
 negative:
-    printf("\n\n$Please,Enter the amount$ \n");
+    system("cls");
+    delay("$Please,Enter the amount$: ", n);
     scanf("%d", &z);
     if (z > 0 && z <= 100000)
     {
         accounts[USerIndex].balance += z;
-        printf("Deposit Successful\n");
-        printf("1.continue \n2.Quit\n");
+
+        delay("Deposit Successful", n);
+        usleep(800000);
+        system("cls");
+        delay("1.continue \n2.Quit", n);
         scanf("%d", &choice);
         switch (choice)
         {
@@ -198,9 +218,9 @@ negative:
     }
     else
     {
-        printf("No money added ,the maximum amount '100.000' '100K' ,please try again! \n ");
+        delay("No money added ,the maximum amount '100.000' '100K' ,please try again! \n ", n);
 
-        printf("1.try again \n2.choose another service\n");
+        delay("1.try again \n2.choose another service\n", n);
         scanf("%d", &choice);
         switch (choice)
         {
@@ -229,27 +249,34 @@ void withdrawCash()
     AccountID = USerIndex;
 
 Label3:
-    printf("Enter The Amount of Money you want: ");
+    system("cls");
+    delay("Enter The Amount of Money you want: ", n);
     scanf("%i", &Balance);
     if (checkIfPossible(Balance) == 1)
     {
-        printf("Are you Sure you want to to withdraw this Money[Enter (1) if you Sure]: ");
+        delay("Are you Sure you want to to withdraw this Money[Enter (1) if you Sure]: ", n);
         scanf("%i", &Choice);
         if (Choice == 1)
         {
             accounts[AccountID].balance -= Balance;
-            printf("Successfull Operation!!\n");
+            system("cls");
+            delay("Successfull Operation!!", n);
+            usleep(800000);
             userSettings();
         }
         else
         {
-            printf("Invalid Choice!!,Try Agian Later\n\n");
+            system("cls");
+            delay("Invalid Choice!!,Try Agian Later", n);
+            usleep(800000);
             userSettings();
         }
     }
     else
     {
-        printf("Invalid, You don't have this money in you Account!!!\n");
+        system("cls");
+        delay("Invalid, You don't have this money in you Account!!!", n);
+        usleep(800000);
         Flag3++;
         if (Flag3 < 3)
         {
@@ -257,6 +284,7 @@ Label3:
         }
         else
         {
+            usleep(1000000);
             userSettings();
         }
     }
@@ -265,13 +293,28 @@ Label3:
 /***************** show the money *******************/
 void checkBalance()
 {
-
+    u8 choice;
     int index = USerIndex;
+    system("cls");
     printf("\n Account Information:\n");
     printf("===============================\n");
-    printf(" Account Holder : %s\n", accounts[index].Name);
-    printf(" Current Balance: %d EGP\n", accounts[index].balance);
+    printf(" %-25s %-15s\n", "Holder", "Balance");
     printf("===============================\n");
+    printf(" %-25s %-15d ", accounts[index].Name, accounts[index].balance);
+    printf("\n===============================\n");
+all:
+
+    delay("press (1) to continue\n", n);
+    scanf("%d", &choice);
+    switch (choice)
+    {
+    case 1:
+        userSettings();
+    default:
+        delay("wrong input\n", n);
+        usleep(800000);
+        goto all;
+    }
 }
 /***************** send money *******************/
 void cashTransfer()
@@ -279,34 +322,40 @@ void cashTransfer()
     u32 form_id, to_id;
     s8 from_index = USerIndex, to_index = -1;
     u32 amount;
+    system("cls");
+    delay("Wilcome in the transfer money serves ", n);
+    usleep(800000);
+    system("cls");
 
-    printf("hello in the transfer money serves\n ");
-
-    printf("enter the id beneficiary: ");
+    delay("Enter the id beneficiary: ", n);
     scanf("%d", &to_id);
     to_index = search1(to_id);
-    printf("enter the mount of transfer money:");
+    system("cls");
+    delay("enter the mount of transfer money:", n);
     scanf("%d", &amount);
     if (to_index == -1)
     {
-        printf("the id beneficiary not found\n");
+        delay("the id beneficiary not found", n);
+        usleep(800000);
         userSettings();
     }
 
     if (!checkIfPossible(amount))
     {
-        printf("the mony in your account not enough\n");
+        delay("the money in your account not enough", n);
+        usleep(800000);
         userSettings();
     }
     else
     {
         accounts[from_index].balance -= amount;
         accounts[to_index].balance += amount;
-        printf("transfer successful\n");
-        printf("/*////////////////////////////////////////*/\n");
+        delay("transfer successful", n);
         u8 Case;
-        printf("if you want to continue enter:1\n");
-        printf("if you want to exist enter :2\n");
+    all:
+        system("cls");
+        delay("if you want to continue enter:1\n", n);
+        delay("if you want to exist enter :2\n", n);
         scanf("%d", &Case);
         switch (Case)
         {
@@ -317,7 +366,9 @@ void cashTransfer()
             return;
             break;
         default:
-            printf("the number you  entered incorrect");
+            delay("the number you  entered incorrect", n);
+            usleep(800000);
+            goto all;
             break;
         }
     }
@@ -336,94 +387,75 @@ void applyForLoan()
     {
         IDFlag = 1;
     }
-    printf("Please,Enter Your Password :");
-    scanf("%d", &B);
-    // if( B == accounts[userIndex].password)
-    //   PASSFlag =1;
+    system("cls");
 
-    if (IDFlag)
+    u32 col[4][4] = {{20.000, 5, 1, 1750}, {30.000, 5, 2, 1750}, {40.000, 6, 2, 1700}, {50.000, 7, 3, 25000}};
+    u16 rows;
+
+    printf("\n\n\n");
+    printf("    %-16s  %-16s %-16s %-16s \n\n", "Amount 'K'", "Interest R", "year", "monthly");
+    for (rows = 0; rows < 4; rows++)
     {
-        if (PASSFlag)
+        printf("%d.\t", rows);
+
+        for (int i = 0; i < 4; i++)
         {
-
-            u32 col[4][4] = {{20.000, 5, 1, 1750}, {30.000, 5, 2, 1750}, {40.000, 6, 2, 1700}, {50.000, 7, 3, 25000}};
-            u16 rows;
-            u16 choice;
-
-            printf("\n\n\n");
-            printf("    %-16s  %-16s %-16s %-16s \n\n", "Amount 'K'", "Interest R", "year", "monthly");
-            for (rows = 0; rows < 4; rows++)
-            {
-                printf("%d.\t", rows);
-
-                for (int i = 0; i < 4; i++)
-                {
-                    printf(" %-14d ", col[rows][i]);
-                }
-
-                printf("\n\n\n");
-            }
-
-            printf("Please ,choose your loan OR press '9' for customer support \n");
-            scanf("%d", &choice);
-            switch (choice)
-            {
-
-            case 0:
-
-                loans[userIndex].money_loan = 20000;
-                loans[userIndex].interest_rate = 5;
-                loans[userIndex].years = 1;
-                loans[userIndex].duration_months = 1750;
-                break;
-
-            case 1:
-
-                loans[userIndex].money_loan = 30000;
-                loans[userIndex].interest_rate = 5;
-                loans[userIndex].years = 1.5;
-                loans[userIndex].duration_months = 1750;
-                break;
-
-            case 2:
-
-                loans[userIndex].money_loan = 40000;
-                loans[userIndex].interest_rate = 7;
-                loans[userIndex].years = 2;
-                loans[userIndex].duration_months = 1700;
-                break;
-
-            case 3:
-
-                loans[userIndex].money_loan = 100000;
-                loans[userIndex].interest_rate = 10;
-                loans[userIndex].years = 4;
-                loans[userIndex].duration_months = 25000;
-                break;
-
-            case 9:
-
-                customerSupport();
-                break;
-            default:
-                printf("Invaild operation \n");
-                break;
-            }
+            printf(" %-14d ", col[rows][i]);
         }
 
-        else
-        {
-            printf("incorrect Password! \n");
-        }
+        printf("\n\n\n");
     }
 
-    else
+    delay("Please ,choose your loan OR press '9' for customer support \n", n);
+    scanf("%d", &choice);
+    switch (choice)
     {
-        printf("invaild ID !\n");
+
+    case 0:
+
+        loans[userIndex].money_loan = 20000;
+        loans[userIndex].interest_rate = 5;
+        loans[userIndex].years = 1;
+        loans[userIndex].duration_months = 1750;
+        break;
+
+    case 1:
+
+        loans[userIndex].money_loan = 30000;
+        loans[userIndex].interest_rate = 5;
+        loans[userIndex].years = 1.5;
+        loans[userIndex].duration_months = 1750;
+        break;
+
+    case 2:
+
+        loans[userIndex].money_loan = 40000;
+        loans[userIndex].interest_rate = 7;
+        loans[userIndex].years = 2;
+        loans[userIndex].duration_months = 1700;
+        break;
+
+    case 3:
+
+        loans[userIndex].money_loan = 100000;
+        loans[userIndex].interest_rate = 10;
+        loans[userIndex].years = 4;
+        loans[userIndex].duration_months = 25000;
+        break;
+
+    case 9:
+
+        customerSupport();
+        break;
+    default:
+        delay("Invaild operation \n", n);
+        break;
     }
 
-    printf("\n****** Thanks for using our service ******\n");
-    printf("1.Goback\n2.Quit");
+    system("cls");
+    delay("..... Thanks for using our service .....", n);
+    delay("1.Goback\n2.Quit", n);
+    delay("\nEnter your choice:", n);
     scanf("%d", &choice);
     switch (choice)
     {
@@ -435,16 +467,19 @@ void applyForLoan()
         break;
     }
 }
+
 /***************** track the installments *******************/
 void trackingLoan()
 {
     u32 id_loan, id_account;
-
-    printf("hello in traking loan serves for user \n");
-    printf("\n/*///////////////////////////*/\n");
-    printf("enter your bank id\n");
+    system("cls");
+    delay("hello in traking loan serves for user \n", n);
+    usleep(800000);
+    system("cls");
+    delay("enter your bank id", n);
     scanf("%d", &id_account);
-    printf("enter the loan id\n");
+    system("cls");
+    printf("enter the loan id", n);
     scanf("%d", &id_loan);
     u8 i = 0;
     for (i; i < loancount; i++)
@@ -456,12 +491,14 @@ void trackingLoan()
     }
     if (i == loancount)
     {
-        printf("incorrect account id or loan id ");
+        delay("incorrect account id or loan id ", n);
+        usleep(800000);
         u8 count;
-        printf("if you want to try again enter :1\n");
-        printf("if you want to exist enter :2\n");
-        printf("if you want to go to home enter :3\n");
-        printf("enter your chose:");
+        system("cls");
+        delay("if you want to try again enter :1\n", n);
+        delay("if you want to exist enter :2\n", n);
+        delay("if you want to go to home enter :3\n", n);
+        delay("enter your chose:", n);
         scanf("%d", &count);
         switch (count)
         {
@@ -475,7 +512,7 @@ void trackingLoan()
             userSettings();
             break;
         default:
-            printf("the number you enter in correct ");
+            delay("the number you enter in correct ", n);
             break;
         }
     }
@@ -485,50 +522,31 @@ void customerSupport(void)
 {
     u8 flag = 0, choice;
     u32 A;
-id:
-    printf("Please ,Enter your ID: \n ");
-    scanf("%d", &A);
-    for (int i = 0; i <= userCount; i++)
+    static u8 comp = 0;
+
+    delay("Please, write your complaints:\n", n);
+    fflush(stdin);
+    gets(accounts[USerIndex].complain);
+    complainName[comp] = USerIndex;
+    comp++;
+    counterr++;
+    printf("\n");
+    usleep(800000);
+
+    system("cls");
+    delay("...... Thanks for your Note ......", n);
+    system("cls");
+    delay("1.continue \n2.Quit\n", n);
+    delay("Enter your choice:", n);
+    scanf("%d", &choice);
+    switch (choice)
     {
-        if (A == accounts[i].Id)
-        {
-            flag = 1;
-        }
-        if (flag)
-        {
-            printf("Please, Add your complaints ! \n");
-            fflush(stdin);
-            gets(accounts[i].complain);
-
-            printf("\n");
-
-            printf("*************** Thanks for your Note ***************\n\n");
-            printf("1.continue \n2.Quit");
-            scanf("%d", &choice);
-            switch (choice)
-            {
-            case 1:
-                userSettings();
-                break;
-            case 2:
-                return;
-                break;
-            }
-        }
-        else
-        {
-            printf("invaild ID!\n");
-            printf("1.try again \n2.choose another service\n");
-            scanf("%d", &choice);
-            switch (choice)
-            {
-            case 1:
-                goto id;
-                break;
-            case 2:
-                userSettings();
-            }
-        }
+    case 1:
+        userSettings();
+        break;
+    case 2:
+        return;
+        break;
     }
 }
 
