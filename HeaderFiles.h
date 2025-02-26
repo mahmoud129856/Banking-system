@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
@@ -91,4 +92,5 @@ U customerSupport();
 s8 search1(seark);
 int (*ptr)(U);
 U delay(const char *text, int Delay);
+u16 stringcheck(char arr[100]);
 /**************User functions  Prototype**********/

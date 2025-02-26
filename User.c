@@ -170,62 +170,62 @@ extern u16 loancount;
 void userSettings()
 {
     u8 choice;
-    while (1)
-    {
-    label:
-        system("cls");
-        delay("1.deposits cash\n", n);
-        delay("2.withdrawals cash\n", n); // اتاكد ان الرقم اللي هيتسحب ده موجود اصلا ومش مخالف للحد الاقصي للسحب
-        delay("3.check balance\n", n);
-        delay("4.cash transfer\n", n);    // اتأكد من ان المبلغ المبعوت موجود اصلا في الحساب وان المبلغ مسموح يتبعت
-        delay("5.apply for loan\n", n);   // هيظهر جدول ل كل القروض الموجوده في النظالم وهو يختار منهم اللي ىناسبه
-        delay("6.tracking loan\n", n);    // بيشوف الفلوس اللي اتدفعت من القرض والفلوس المتبقه عليه للبنك
-        delay("7.Customer Support\n", n); // مش بيعمل اكتر من انه بيكتب مسدج ونخزنها منه
-        delay("8.go back\n", n);
-        delay("9.Exit\n", n);
-        delay("\nEnter your choice: ", n);
-        if (scanf("%d", &choice) != 1)
-        {
-            delay("Invalid Input!\n", n);
-            scanf("%*[^\n]");
-            usleep(500000);
-            goto label;
-        }
 
-        switch (choice)
-        {
-        case 1:
-            depositCash();
-            break;
-        case 2:
-            withdrawCash();
-            break;
-        case 3:
-            checkBalance();
-            break;
-        case 4:
-            cashTransfer();
-            break;
-        case 5:
-            applyForLoan();
-            break;
-        case 6:
-            trackingLoan();
-            break;
-        case 7:
-            customerSupport();
-            break;
-        case 8:
-            systemFace();
-            break;
-        case 9:
-            return 0;
-        default:
-            delay("Invalid choice", n);
-            usleep(800000);
-        }
+label:
+    system("cls");
+    delay("1.deposits cash\n", n);
+    delay("2.withdrawals cash\n", n); // اتاكد ان الرقم اللي هيتسحب ده موجود اصلا ومش مخالف للحد الاقصي للسحب
+    delay("3.check balance\n", n);
+    delay("4.cash transfer\n", n);    // اتأكد من ان المبلغ المبعوت موجود اصلا في الحساب وان المبلغ مسموح يتبعت
+    delay("5.apply for loan\n", n);   // هيظهر جدول ل كل القروض الموجوده في النظالم وهو يختار منهم اللي ىناسبه
+    delay("6.tracking loan\n", n);    // بيشوف الفلوس اللي اتدفعت من القرض والفلوس المتبقه عليه للبنك
+    delay("7.Customer Support\n", n); // مش بيعمل اكتر من انه بيكتب مسدج ونخزنها منه
+    delay("8.go back\n", n);
+    delay("9.Exit\n", n);
+    delay("\nEnter your choice: ", n);
+    if (scanf("%d", &choice) != 1)
+    {
+        delay("Invalid Input!\n", n);
+        scanf("%*[^\n]");
+        usleep(500000);
+        goto label;
+    }
+
+    switch (choice)
+    {
+    case 1:
+        depositCash();
+        break;
+    case 2:
+        withdrawCash();
+        break;
+    case 3:
+        checkBalance();
+        break;
+    case 4:
+        cashTransfer();
+        break;
+    case 5:
+        applyForLoan();
+        break;
+    case 6:
+        trackingLoan();
+        break;
+    case 7:
+        customerSupport();
+        break;
+    case 8:
+        systemFace();
+        break;
+    case 9:
+        return 0;
+    default:
+        delay("Invalid choice", n);
+        usleep(800000);
+        goto label;
     }
 }
+
 /***************** add money *******************/
 void depositCash()
 {
@@ -376,11 +376,11 @@ void checkBalance()
 all:
     system("cls");
     printf("\n Account Information:\n");
-    printf("===============================\n");
+    printf("========================================\n");
     printf(" %-25s %-15s\n", "Holder", "Balance");
-    printf("===============================\n");
+    printf("========================================\n");
     printf(" %-25s %-15d ", accounts[index].Name, accounts[index].balance);
-    printf("\n===============================\n");
+    printf("\n======================================\n");
 
     delay("press (1) to continue\n", n);
     if (scanf("%d", &choice) != 1)
@@ -530,7 +530,8 @@ mine:
         loans[userIndex].interest_rate = 5;
         loans[userIndex].years = 1;
         loans[userIndex].duration_months = 1750;
-        loans[userIndex].loan_id = userIndex;
+        loans[userIndex].loan_id = accounts[USerIndex].Id;
+        loancount++;
         break;
 
     case 1:
@@ -540,7 +541,8 @@ mine:
         loans[userIndex].interest_rate = 5;
         loans[userIndex].years = 1.5;
         loans[userIndex].duration_months = 1750;
-        loans[userIndex].loan_id = userIndex;
+        loans[userIndex].loan_id = accounts[USerIndex].Id;
+        loancount++;
         break;
 
     case 2:
@@ -550,7 +552,8 @@ mine:
         loans[userIndex].interest_rate = 7;
         loans[userIndex].years = 2;
         loans[userIndex].duration_months = 1700;
-        loans[userIndex].loan_id = userIndex;
+        loans[userIndex].loan_id = accounts[USerIndex].Id;
+        loancount++;
         break;
 
     case 3:
@@ -559,8 +562,9 @@ mine:
         loans[userIndex].interest_rate = 10;
         loans[userIndex].years = 4;
         loans[userIndex].duration_months = 25000;
-        loans[userIndex].loan_id = userIndex;
+        loans[userIndex].loan_id = accounts[USerIndex].Id;
         loans[userIndex].remaning_balanc = 100000;
+        loancount++;
         break;
 
     case 9:
@@ -574,7 +578,7 @@ mine:
 
 Label12:
     system("cls");
-    delay("..... Thanks for using our service .....", n);
+    delay("..... Thanks for using our service .....\n", n);
     delay("1.Goback\n2.Quit", n);
     delay("\nEnter your choice:", n);
     if (scanf("%d", &choice) != 1)
@@ -598,34 +602,26 @@ Label12:
 /***************** track the installments *******************/
 void trackingLoan()
 {
-    u64 id_loan, id_account;
+    u64 id_loan, id_account, valid = 0;
+    u8 i = 0;
 y:
     system("cls");
     delay("Hello in tracking loan serves for user \n", n);
     usleep(800000);
     system("cls");
-    printf("Enter the loan id", n);
-    if (scanf("%llu", &id_loan) != 1)
-    {
-        delay("Invalid Input!\n", n);
-        scanf("%*[^\n]");
-        usleep(500000);
-        goto y;
-    }
-    u8 i = 0;
-    for (i; i < loancount; i++)
+    delay("Enter the loan id:", n);
+    scanf("%llu", &id_loan);
+
+    for (i = 0; i <= loancount; i++)
     {
         if (loans[i].loan_id == id_loan)
         {
-            printf("\n=======================================================================================================\n");
-            printf("%-25s %-20s %-20s %-15s %-15s %-15s", "Name", "your ID", "loan ID", "amount", "remain", "Monthly");
-            printf("\n=======================================================================================================\n");
-            printf("%-25s %-20s %-20s %-15s %-15s %-15s", loans[i].name, accounts[USerIndex].Name, loans[i].loan_id, loans[i].money_loan, loans[i].remaning_balanc, loans[i].duration_months);
-            printf("\n=======================================================================================================\n");
+            valid = 1;
+            break;
         }
     }
 
-    if (i == loancount)
+    if (!valid)
     {
         delay("incorrect loan id !!", n);
         usleep(800000);
@@ -659,7 +655,18 @@ y:
             break;
         }
     }
+
+    else
+    {
+
+        printf("\n=======================================================================================================\n");
+        printf("%-25s  %-20s %-15s %-15s %-15s", "Name", "loan ID", "amount", "remain", "Monthly");
+        printf("\n=======================================================================================================\n");
+        printf("%-25s %-20d %-20d %-15d %-15d ", accounts[USerIndex].Name, loans[i].loan_id, loans[i].money_loan, loans[i].remaning_balanc, loans[i].duration_months);
+        printf("\n=======================================================================================================\n");
+    }
 }
+
 /***************** write a massage from user *******************/
 void customerSupport(void)
 {
