@@ -118,10 +118,8 @@ U adminSettings()
         delay("2.update account\n", n);
         delay("3.delete account\n", n);
         delay("4.Diplay info of User\n", n);
-        delay("5.loans information & decision\n", n);
-        delay("6.support section & decision\n", n);
-        delay("7.LogOut\n", n);
-        delay("8.Exit\n", n);
+        delay("5.support section & decision\n", n);
+        delay("6.LogOut\n", n);
         delay("Enter your choice: ", n);
         if (scanf("%d", &choice) != 1)
         {
@@ -145,19 +143,14 @@ U adminSettings()
         case 4:
             displayUserInfo();
             break;
-        case 5:
-            loanInformation();
-            break;
 
-        case 6:
+        case 5:
             supportSection();
             break;
-        case 7:
+        case 6:
             systemFace();
             break;
-        case 8:
-            return 0;
-            break;
+
         default:
             delay("Invalid choice! Try again.", n);
             usleep(800000);
@@ -874,139 +867,99 @@ invalid:
 }
 
 //=============================delete===================================
-U deleteAccount()
+
+int getChoice(int min, int max)
 {
-    int Account_ID;
-    int Size = 0;
+    int choice;
+    while (1)
+    {
+        printf("Enter your choice (%d-%d): ", min, max);
+        if (scanf("%d", &choice) == 1 && choice >= min && choice <= max)
+        {
+            return choice;
+        }
+        else
+        {
+            printf("Invalid input! Please try again.\n");
+            while (getchar() != '\n')
+                ;
+        }
+    }
+}
 
-    u32 Password;
-    int Result = 0;
-    int Flag = 0;
-    int Flag1 = 0;
-    int Flag2 = 0;
-    int Flag3 = 0;
-    int Choice = 0;
-    int Choice1 = 0;
+void deleteAccount()
+{
     u64 all;
-    char arr[100];
-    int valid = 0;
-Label2:
-    system("cls");
-    delay("Enter account Id:", n);
-    if (scanf("%llu", &all) != 1)
+    int Account_ID;
+
+    while (1)
     {
-        delay("invalid Input!", n);
-        usleep(800000);
-        scanf("%*[^\n]");
         system("cls");
-        goto Label2;
-    }
-    Account_ID = search1(all);
-    if (Account_ID >= 0)
-    {
-        delay("valid Account ID!!", n);
-        usleep(800000);
-
-    f:
-        system("cls");
-        delay("Account name:", n);
-        delay(accounts[Account_ID].Name, n);
-        delay("\nAre you sure You want to Delete this Account?\nEnter [1] to Delete:", n);
-        if (scanf("%llu", &Choice1) != 1)
+        delay("Enter Account Id: ", n);
+        if (scanf("%llu", &all) != 1)
         {
-            delay("invalid Input!", n);
+            delay("Invalid Input!", n);
             usleep(800000);
-            scanf("%*[^\n]");
-            system("cls");
-            goto f;
+            while (getchar() != '\n')
+                ;
+            continue;
         }
 
-        switch (Choice1)
+        Account_ID = search1(all);
+        if (Account_ID >= 0)
         {
-        case 1:
-            accounts[Account_ID].age = 0;
-            accounts[Account_ID].balance = 0;
-            accounts[Account_ID].password = 0;
-            accounts[Account_ID].Id = 0;
-            accounts[Account_ID].phoneNumber = 0;
-            memset(accounts[Account_ID].acountType, '0', 100);
-            memset(accounts[Account_ID].address, '0', 100);
-            memset(accounts[Account_ID].Name, '0', 100);
-            memset(accounts[Account_ID].complain, '0', 500);
-            userCount--;
-            system("cls");
-            delay("Account Deleted Successfully!", n);
+            delay("Valid Account ID found.\n", n);
             usleep(800000);
-            adminSettings();
-            break;
-
-        default:
-        {
             system("cls");
-            delay("Invalid Choise, Try Again Later!!", n);
-            usleep(800000);
-            adminSettings();
-            break;
-        }
-        }
-    }
+            delay("Account Name: ", n);
+            delay(accounts[Account_ID].Name, n);
+            delay("Are you sure you want to delete this account? Enter [1] to Delete: ", n);
 
-    else
-    {
-        int Choice = 0;
-
-        delay("Invlide Account ID!!!", n);
-        usleep(800000);
-    Label3:
-        system("cls");
-        delay("[1] to Try Again\n", n);
-        delay("[2] to Admin Page\n", n);
-        delay("[3] to Exit\n", n);
-
-        delay("Enter Your Choice: ", n);
-        fflush(stdin);
-        if (scanf("%d", &Choice) != 1)
-        {
-            delay("invalid Input!", n);
-            usleep(800000);
-            scanf("%*[^\n]");
-            system("cls");
-            goto Label3;
-        }
-        switch (Choice)
-        {
-        case 1:
-            Flag2++;
-            if (Flag2 < 3)
+            int choice = getChoice(1, 2);
+            if (choice == 1)
             {
-                goto Label2;
-            }
-            else
-            {
+
+                for (int i = Account_ID; i < userCount - 1; i++)
+                {
+                    accounts[i] = accounts[i + 1];
+                }
+                memset(&accounts[userCount - 1], 0, sizeof(accounts));
+
+                userCount--;
                 system("cls");
-                usleep(1000000);
+                delay("Account Deleted Successfully!", n);
+                usleep(800000);
+                return;
+            }
+            else if (choice == 2)
+            {
+                delay("Nothing happen", n);
+                usleep(800000);
                 adminSettings();
             }
-            break;
-        case 2:
-            adminSettings();
+        }
+        else
+        {
+            delay("Invalid Account ID!!!\n", n);
+            usleep(800000);
 
-            break;
-        case 3:
-            exit(1);
-            break;
-        default:
-            delay("Invalid Choice!!", n);
-            Flag3++;
-            if (Flag3 < 3)
+            delay("[1] Try Again\n", n);
+            delay("[2] Admin Page\n", n);
+            delay("[3] Exit\n", n);
+
+            int choice = getChoice(1, 3);
+            switch (choice)
             {
-                goto Label3;
-            }
-            else
-            {
-                system("cls");
-                usleep(1000000);
-                adminSettings();
+            case 1:
+                continue;
+            case 2:
+
+                return;
+            case 3:
+                exit(1);
+            default:
+                printf("Invalid Choice, exiting.\n");
+                exit(1);
             }
         }
     }
