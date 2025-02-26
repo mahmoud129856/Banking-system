@@ -198,8 +198,8 @@ label:
     delay("5.apply for loan\n", n);   // هيظهر جدول ل كل القروض الموجوده في النظالم وهو يختار منهم اللي ىناسبه
     delay("6.tracking loan\n", n);    // بيشوف الفلوس اللي اتدفعت من القرض والفلوس المتبقه عليه للبنك
     delay("7.Customer Support\n", n); // مش بيعمل اكتر من انه بيكتب مسدج ونخزنها منه
-    delay("8.go back\n", n);
-    delay("9.Exit\n", n);
+    delay("8.logout\n", n);
+
     delay("\nEnter your choice: ", n);
     if (scanf("%d", &choice) != 1)
     {
@@ -235,8 +235,7 @@ label:
     case 8:
         systemFace();
         break;
-    case 9:
-        return 0;
+
     default:
         delay("Invalid choice", n);
         usleep(800000);
@@ -618,70 +617,96 @@ Label12:
 }
 
 /***************** track the installments *******************/
+
 void trackingLoan()
 {
-    u64 id_loan, id_account, valid = 0;
+    u64 id_loan;
+    int valid = 0;
     u8 i = 0;
-y:
-    system("cls");
-    delay("Hello in tracking loan serves for user \n", n);
-    usleep(800000);
-    system("cls");
-    delay("Enter the loan id:", n);
-    scanf("%llu", &id_loan);
-
-    for (i = 0; i <= loancount; i++)
+    printf("%d", loans[USerIndex].duration_months);
+    usleep(100000);
+    while (1)
     {
-        if (loans[i].loan_id == id_loan)
-        {
-            valid = 1;
-            break;
-        }
-    }
-
-    if (!valid)
-    {
-        delay("incorrect loan id !!", n);
-        usleep(800000);
-        u8 count;
-    mine:
         system("cls");
-        delay("if you want to try again enter :1\n", n);
-        delay("if you want to exist enter :2\n", n);
-        delay("if you want to go to home enter :3\n", n);
-        delay("enter your chose:", n);
-        if (scanf("%d", &count) != 1)
+        delay("Hello in tracking loan service for user\n", n);
+        usleep(800000);
+        system("cls");
+        delay("Enter the loan ID: ", n);
+
+        if (scanf("%llu", &id_loan) != 1)
         {
-            delay("Invalid Input!\n", n);
+            delay("Invalid Input! Please enter a valid loan ID.\n", n);
             scanf("%*[^\n]");
             usleep(500000);
-            goto mine;
+            continue;
         }
-        switch (count)
+
+        valid = 0;
+        for (i = 0; i < loancount; i++)
         {
-        case 1:
-            trackingLoan();
-            break;
-        case 2:
-            return;
-            break;
-        case 3:
-            userSettings();
-            break;
-        default:
-            delay("the number you enter in correct ", n);
-            break;
+            if (loans[i].loan_id == id_loan)
+            {
+                valid = 1;
+                break;
+            }
         }
-    }
 
-    else
-    {
+        if (!valid)
+        {
+            delay("Incorrect loan ID!\n", n);
+            usleep(800000);
 
-        printf("\n=======================================================================================================\n");
-        printf("%-25s  %-20s %-15s %-15s %-15s", "Name", "loan ID", "amount", "remain", "Monthly");
-        printf("\n=======================================================================================================\n");
-        printf("%-25s %-20d %-20d %-15d %-15d ", accounts[USerIndex].Name, loans[i].loan_id, loans[i].money_loan, loans[i].remaning_balanc, loans[i].duration_months);
-        printf("\n=======================================================================================================\n");
+            int count;
+            while (1)
+            {
+                system("cls");
+                delay("If you want to try again enter: [1]\n", n);
+                delay("If you want to exit enter: [2]\n", n);
+                delay("If you want to go to home enter: [3]\n", n);
+                delay("Enter your choice: ", n);
+
+                if (scanf("%d", &count) != 1)
+                {
+                    delay("Invalid Input! Please enter a valid choice.\n", n);
+                    scanf("%*[^\n]");
+                    usleep(500000);
+                    continue;
+                }
+
+                if (count == 1)
+                {
+                    break;
+                }
+                else if (count == 2)
+                {
+                    return;
+                }
+                else if (count == 3)
+                {
+                    userSettings();
+                    return;
+                }
+                else
+                {
+                    delay("Invalid choice! Please enter 1, 2, or 3.\n", n);
+                }
+            }
+        }
+        else
+        {
+
+            printf("\n=======================================================================================================\n");
+            printf("%-25s  %-20s %-15s %-15s %-15s\n", "Name", "Loan ID", "Amount", "Remain", "Monthly");
+            printf("=======================================================================================================\n");
+            printf("%-25s %-20llu %-15llu %-15llu %-15llu\n",
+                   accounts[USerIndex].Name,
+                   loans[i].loan_id,
+                   loans[i].money_loan,
+                   loans[i].remaning_balanc,
+                   loans[i].duration_months);
+            printf("=======================================================================================================\n");
+            return;
+        }
     }
 }
 

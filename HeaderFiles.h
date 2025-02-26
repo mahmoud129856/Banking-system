@@ -43,15 +43,15 @@ typedef struct
 
 typedef struct
 {
-    u32 bank_id;         // هنا ضفت bank id علشان اعرف اخزن الloan علي الحساب بتاعه
-    u32 loan_id;         // وطبعا لازم يكون فيه id loan علشان لو عاوز اعمل check عليه
+    u64 bank_id;         // هنا ضفت bank id علشان اعرف اخزن الloan علي الحساب بتاعه
+    u64 loan_id;         // وطبعا لازم يكون فيه id loan علشان لو عاوز اعمل check عليه
     u8 name[100];        // user who asked for loan
     u8 reason[800];      // raason for loan
     u8 type;             // Savings/Checking
-    u32 money_loan;      // هنا الفلوس المطلوبه من القرض
+    u64 money_loan;      // هنا الفلوس المطلوبه من القرض
     float interest_rate; //%5هنا هخزن الفايده وانت بتعمل القرض بتاعك وهعرضها علي المستخدم الي عاوز يعمل قرض وهنخليها
-    u8 duration_months;  // هنخزن هنا المده الي لازم نسدد فيها القرض وهنخليها علي سنتين اقل حاجه
-    u32 remaning_balanc;
+    u64 duration_months; // هنخزن هنا المده الي لازم نسدد فيها القرض وهنخليها علي سنتين اقل حاجه
+    u64 remaning_balanc;
     f32 years;
 } loan;
 

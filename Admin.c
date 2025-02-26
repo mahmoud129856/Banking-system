@@ -109,52 +109,50 @@ U adminSettings()
     /*every function will contain option "Go back for admin options"*/
 
     u8 choice = 0;
-    while (1)
+
+invalid:
+    system("cls");
+    delay("1.create account\n", n);
+    delay("2.update account\n", n);
+    delay("3.delete account\n", n);
+    delay("4.Diplay info of User\n", n);
+    delay("5.support section & decision\n", n);
+    delay("6.LogOut\n", n);
+    delay("Enter your choice: ", n);
+    if (scanf("%d", &choice) != 1)
     {
-
-    invalid:
         system("cls");
-        delay("1.create account\n", n);
-        delay("2.update account\n", n);
-        delay("3.delete account\n", n);
-        delay("4.Diplay info of User\n", n);
-        delay("5.support section & decision\n", n);
-        delay("6.LogOut\n", n);
-        delay("Enter your choice: ", n);
-        if (scanf("%d", &choice) != 1)
-        {
-            system("cls");
-            delay("Invalid Input!", n);
-            scanf("%*[^\n]");
-            usleep(500000);
-            goto invalid;
-        }
-        switch (choice)
-        {
-        case 1:
-            createAccount();
-            break;
-        case 2:
-            updateAccount();
-            break;
-        case 3:
-            deleteAccount();
-            break;
-        case 4:
-            displayUserInfo();
-            break;
+        delay("Invalid Input!", n);
+        scanf("%*[^\n]");
+        usleep(500000);
+        goto invalid;
+    }
+    switch (choice)
+    {
+    case 1:
+        createAccount();
+        break;
+    case 2:
+        updateAccount();
+        break;
+    case 3:
+        deleteAccount();
+        break;
+    case 4:
+        displayUserInfo();
+        break;
 
-        case 5:
-            supportSection();
-            break;
-        case 6:
-            systemFace();
-            break;
+    case 5:
+        supportSection();
+        break;
+    case 6:
+        systemFace();
+        break;
 
-        default:
-            delay("Invalid choice! Try again.", n);
-            usleep(800000);
-        }
+    default:
+        delay("Invalid choice! Try again.", n);
+        usleep(800000);
+        goto invalid;
     }
 }
 
@@ -1168,40 +1166,40 @@ al:
 void systemFace()
 {
     u8 choice = 0;
-    while (1)
+
+invalid:
+    system("cls");
+
+    delay("1.Admin Moode\n", n);
+    delay("2.User Moode\n", n);
+    delay("3.Quit\n", n);
+    delay("Enter your choice:", n);
+
+    if (scanf("%d", &choice) != 1)
     {
-    invalid:
-        system("cls");
+        delay("Invalid input", n);
 
-        delay("1.Admin Moode\n", n);
-        delay("2.User Moode\n", n);
-        delay("3.Quit\n", n);
-        delay("Enter your choice:", n);
-
-        if (scanf("%d", &choice) != 1)
-        {
-            delay("Invalid input", n);
-
-            scanf("%*[^\n]");
-            usleep(800000);
-            goto invalid;
-        }
-        switch (choice)
-        {
-        case 1:
-            Admin_LogIn(Admin_Entering);
-            break;
-        case 2:
-            User_Login();
-            break;
-        case 3:
-            return 0;
-        default:
-            delay("Invalid choice!", n);
-            usleep(800000);
-        }
+        scanf("%*[^\n]");
+        usleep(800000);
+        goto invalid;
+    }
+    switch (choice)
+    {
+    case 1:
+        Admin_LogIn(Admin_Entering);
+        break;
+    case 2:
+        User_Login();
+        break;
+    case 3:
+        return 0;
+    default:
+        delay("Invalid choice!", n);
+        usleep(800000);
+        goto invalid;
     }
 }
+
 s8 search1(u64 x)
 {
     u8 i;
