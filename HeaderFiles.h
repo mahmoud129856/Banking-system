@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <conio.h>
 /**************** incluse section *****************/
 
 #ifndef TYPEDEF_H_

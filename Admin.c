@@ -1,24 +1,42 @@
 #include "HeaderFiles.h"
-char Admin_Entering[5] = "100";
-
+char Admin_Entering[5] = "190869";
 extern u8 counterr;
 /****************** admin login ****************/
 U Admin_LogIn(char ID[])
 {
 
-    char New_ID[10];
+    char New_ID, coo[20];
     int Result = -2;
     int Flag = 0;
     int Flag1 = 1;
     int choice;
+    int i = 0;
 Label1:
     system("cls");
-
+    i = 0;
     delay("Welcome Sir!!\n", n);
     delay("please enter your ID:", n);
-    fflush(stdin);
-    scanf("%s", &New_ID);
-    Result = memcmp(New_ID, Admin_Entering, 3);
+    while (1)
+    {
+
+        New_ID = getch();
+
+        if (New_ID == 13)
+        {
+            coo[i] = '\0';
+            break;
+        }
+        else if (New_ID == 8 && i > 0)
+        {
+            printf("\b \b");
+        }
+        else if (i < 19)
+        {
+            coo[i++] = New_ID;
+            printf("*");
+        }
+    }
+    Result = memcmp(coo, Admin_Entering, 4);
     if (Result == 0)
     {
         adminSettings();

@@ -12,12 +12,15 @@ U User_Login(void)
     int Flag3 = 0;
     int Choice = 0;
     int seark;
+    int i = 0;
+    char New_ID, coo[20];
 
 Label2:
     system("cls");
     delay("Welcome Back!!\n", n);
 
     delay("Enter your ID:", n);
+
     if (scanf("%d", &seark) != 1)
     {
         delay("Invalid Input!\n", n);
@@ -33,22 +36,37 @@ Label2:
         delay("valid ID!!", n);
         usleep(800000);
     Label1:
+        i = 0;
         system("cls");
         delay("Enter Your Account Password: ", n);
 
-        if (scanf("%d", &Password) != 1)
+        while (1)
         {
-            delay("Invalid Input!\n", n);
-            scanf("%*[^\n]");
-            usleep(500000);
-            goto Label1;
+
+            New_ID = getch();
+
+            if (New_ID == 13)
+            {
+                coo[i] = '\0';
+                break;
+            }
+            else if (New_ID == 8 && i > 0)
+            {
+                printf("\b \b");
+            }
+            else if (i < 19)
+            {
+                coo[i++] = New_ID;
+                printf("*");
+            }
         }
+        Password = atoi(coo);
 
         if (Password == accounts[Account_ID].password)
 
         {
 
-            delay("Valid Password!!", n);
+            delay("\nValid Password!!", n);
             usleep(800000);
             userSettings();
         }
